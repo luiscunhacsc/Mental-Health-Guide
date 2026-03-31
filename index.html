@@ -1539,7 +1539,7 @@ window.MENTAL_HEALTH_QRG_DATA = {
         "Projeto de Consciencialização sobre a Fadiga por Compaixão",
         "Tend Academy",
         "Ficha de Dicas sobre Comportamentos Preocupantes",
-        "Wellness Together Canada",
+        "Wellness Together",
         "Compaixão: Bondade para Consigo e para com os Outros",
         "Programa de assistência ao funcionário"
       ]
@@ -3188,14 +3188,6 @@ function construirModulos(dados) {
     payload: dados.impacto
   });
 
-  base.push({
-    id: "aprendizagem-adicional",
-    tipo: "aprendizagem",
-    titulo: "Aprendizagem Adicional",
-    subtitulo: "Recursos de formação contínua e temas de aprofundamento.",
-    payload: dados.aprendizagem
-  });
-
   if (dados.casos.length > 0) {
     base.push({
       id: "laboratorio-casos",
@@ -3386,8 +3378,6 @@ function renderizarConteudo(modulo) {
     corpo = renderizarBlocoGuia(modulo.payload);
   } else if (modulo.tipo === "impacto") {
     corpo = renderizarBlocoImpacto(modulo.payload);
-  } else if (modulo.tipo === "aprendizagem") {
-    corpo = renderizarBlocoAprendizagem(modulo.payload);
   } else if (modulo.tipo === "casos") {
     corpo = renderizarBlocoCasos(modulo.payload);
   }
@@ -3901,27 +3891,6 @@ function renderizarBlocoImpacto(impacto) {
   `;
 }
 
-function renderizarBlocoAprendizagem(aprendizagem) {
-  return `
-    <section class="guide-layout">
-      <article class="content-card">
-        <h4>Entidade</h4>
-        <p>${esc(aprendizagem.fornecedor)}</p>
-      </article>
-
-      <article class="content-card">
-        <h4>Descrição</h4>
-        <p>${esc(aprendizagem.descricao)}</p>
-      </article>
-
-      <article class="content-card list-block">
-        <h4>Tópicos Abrangidos</h4>
-        ${listaHtml(aprendizagem.topicos)}
-      </article>
-    </section>
-  `;
-}
-
 function renderizarCartoes(modulo) {
   const cartoes = construirCartoes(modulo);
   if (!cartoes.length) {
@@ -4048,31 +4017,6 @@ function construirCartoes(modulo) {
     });
     return cartoes;
   }
-
-  if (modulo.tipo === "aprendizagem") {
-    const cartoes = [
-      {
-        etiqueta: "Recurso",
-        frente: "Qual é a entidade indicada para aprendizagem adicional?",
-        verso: modulo.payload.fornecedor
-      },
-      {
-        etiqueta: "Descrição",
-        frente: "Como é descrita a biblioteca de aprendizagem adicional?",
-        verso: modulo.payload.descricao
-      }
-    ];
-
-    modulo.payload.topicos.forEach((item) => {
-      cartoes.push({
-        etiqueta: "Tópico",
-        frente: "Indica um tópico de aprendizagem adicional.",
-        verso: item
-      });
-    });
-    return cartoes;
-  }
-
   if (modulo.tipo === "casos") {
     return modulo.payload.flatMap((caso) => [
       {
@@ -4259,15 +4203,6 @@ function construirFactosQuiz() {
       pergunta: `No contexto dos cuidadores, que termo corresponde a esta definição?\n"${resumir(descricao, 150)}"`,
       correta: termo,
       pool: termosImpacto
-    });
-  });
-
-  const topicos = estado.dados.aprendizagem.topicos;
-  topicos.forEach((topico) => {
-    factos.push({
-      pergunta: "Qual destes tópicos consta da secção de aprendizagem adicional?",
-      correta: topico,
-      pool: topicos
     });
   });
 
@@ -4507,7 +4442,6 @@ function rotuloTipo(tipo) {
     categorias: "Mapa Diagnóstico",
     guia: "Guia Clínico",
     impacto: "Bem-estar do Cuidador",
-    aprendizagem: "Recursos",
     casos: "Laboratório Clínico"
   };
   return mapa[tipo] ?? "Módulo";
