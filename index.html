@@ -1,0 +1,2406 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aprendizagem em Saúde Mental</title>
+  <meta name="description" content="Aplicação de aprendizagem em saúde mental com base no Guia de Referência Rápida.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg: #f1f7f5;
+  --surface: #ffffff;
+  --surface-muted: #edf4f1;
+  --ink: #162328;
+  --muted: #4f646b;
+  --brand: #0f766e;
+  --brand-strong: #0a5d58;
+  --accent: #ef8354;
+  --soft-accent: #ffd7c6;
+  --ok: #2a9d8f;
+  --warning: #b45309;
+  --danger: #b42318;
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 12px 30px rgba(14, 55, 58, 0.12);
+  --shadow-soft: 0 4px 18px rgba(14, 55, 58, 0.09);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: linear-gradient(175deg, #f2faf7 0%, #f8f4ee 58%, #f5fbfa 100%);
+  min-height: 100vh;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(2px);
+  opacity: 0.4;
+  animation: float 12s ease-in-out infinite;
+}
+
+.orb-a {
+  width: 26rem;
+  height: 26rem;
+  left: -7rem;
+  top: -7rem;
+  background: radial-gradient(circle at 35% 35%, #6bc4ad 0%, #2fa89d 45%, transparent 80%);
+}
+
+.orb-b {
+  width: 20rem;
+  height: 20rem;
+  right: -5rem;
+  top: 20%;
+  background: radial-gradient(circle at 40% 40%, #ffc29e 0%, #f0986d 48%, transparent 80%);
+  animation-delay: -4s;
+}
+
+.orb-c {
+  width: 24rem;
+  height: 24rem;
+  right: 24%;
+  bottom: -10rem;
+  background: radial-gradient(circle at 35% 35%, #8acfc8 0%, #5fb7a5 40%, transparent 80%);
+  animation-delay: -7s;
+}
+
+.app-shell {
+  width: min(1380px, 96vw);
+  margin: 1.2rem auto 2rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0.2rem 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.brand-badge {
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.9rem;
+  background: linear-gradient(135deg, var(--brand) 0%, #17a39f 100%);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  box-shadow: var(--shadow-soft);
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  color: var(--brand-strong);
+  font-weight: 700;
+}
+
+.brand h1 {
+  margin: 0.12rem 0 0;
+  font-family: "Bitter", Georgia, serif;
+  font-size: clamp(1.1rem, 2vw, 1.55rem);
+  font-weight: 700;
+}
+
+.nav-toggle {
+  display: none;
+  border: 1px solid #dbe9e3;
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.58rem 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(270px, 320px) 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.main-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.92));
+  border: 1px solid #e0ebe6;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.1rem;
+}
+
+.panel h2,
+.panel h3 {
+  margin-top: 0;
+}
+
+.search-wrap label {
+  display: block;
+  font-size: 0.86rem;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+input[type="search"] {
+  width: 100%;
+  border: 1px solid #cde0d8;
+  border-radius: 12px;
+  padding: 0.64rem 0.78rem;
+  font: inherit;
+  background: #f8fcfa;
+}
+
+input[type="search"]:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.search-results {
+  margin-top: 0.7rem;
+  display: grid;
+  gap: 0.4rem;
+  max-height: 12.5rem;
+  overflow-y: auto;
+}
+
+.search-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.87rem;
+}
+
+.search-result-btn {
+  text-align: left;
+  border: 1px solid #d9e6e1;
+  background: #f7fbf9;
+  border-radius: var(--radius-sm);
+  padding: 0.56rem 0.62rem;
+  cursor: pointer;
+}
+
+.search-result-btn:hover {
+  background: #eef7f3;
+}
+
+.search-result-title {
+  display: block;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.search-result-type {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.module-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.44rem;
+}
+
+.module-btn {
+  width: 100%;
+  border: 1px solid #dae8e2;
+  background: #f8fcfa;
+  border-radius: var(--radius-sm);
+  text-align: left;
+  padding: 0.58rem 0.66rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.module-btn:hover {
+  background: #edf7f4;
+}
+
+.module-btn.active {
+  border-color: #9ad6ca;
+  background: linear-gradient(140deg, #dff4ef 0%, #f2faf8 100%);
+}
+
+.module-text {
+  font-size: 0.93rem;
+  font-weight: 600;
+}
+
+.module-meta {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.status-pill {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  border: 2px solid #b7cbc4;
+  flex-shrink: 0;
+}
+
+.status-pill.done {
+  border-color: #2f9e8a;
+  background: radial-gradient(circle at 35% 35%, #67d4bd 0%, #2f9e8a 75%);
+}
+
+.progress-text {
+  margin: 0.2rem 0 0.45rem;
+  color: var(--muted);
+}
+
+.progress-track {
+  width: 100%;
+  height: 0.62rem;
+  background: #d6e7df;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #1f9d8f 0%, #53beaa 100%);
+  transition: width 220ms ease;
+}
+
+.hero h2 {
+  font-family: "Bitter", Georgia, serif;
+  font-size: clamp(1.35rem, 2.6vw, 2.05rem);
+  margin-bottom: 0.5rem;
+}
+
+.hero-copy {
+  margin-top: 0;
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+.stats-grid {
+  margin-top: 0.95rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+  gap: 0.7rem;
+}
+
+.stat-card {
+  background: linear-gradient(165deg, #f4faf8 0%, #fbf8f2 100%);
+  border: 1px solid #deebe6;
+  border-radius: var(--radius-md);
+  padding: 0.7rem;
+  animation: rise 400ms ease both;
+}
+
+.stat-value {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--brand-strong);
+}
+
+.stat-label {
+  margin: 0.15rem 0 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.controls {
+  padding: 0.75rem 0.9rem;
+}
+
+.view-switcher {
+  display: inline-flex;
+  border: 1px solid #d3e4dd;
+  background: #f6fbf9;
+  border-radius: 999px;
+  padding: 0.22rem;
+  gap: 0.18rem;
+}
+
+.view-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.44rem 0.88rem;
+  background: transparent;
+  cursor: pointer;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.view-btn.active {
+  background: linear-gradient(135deg, #1f9d8f, #127870);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(16, 123, 114, 0.35);
+}
+
+.view-container {
+  min-height: 360px;
+}
+
+.loading {
+  margin: 0;
+  color: var(--muted);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 1.23rem;
+  font-family: "Bitter", Georgia, serif;
+}
+
+.section-subtitle {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+}
+
+.complete-btn {
+  border: 1px solid #ccdeda;
+  background: #f8fcfa;
+  border-radius: 999px;
+  padding: 0.5rem 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.complete-btn.done {
+  border-color: #99d8ca;
+  background: #e7f8f3;
+  color: #0a645d;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.8rem;
+}
+
+.content-card {
+  border: 1px solid #dce9e4;
+  border-radius: var(--radius-md);
+  padding: 0.78rem 0.86rem;
+  background: linear-gradient(180deg, #fefefe, #f8fcfa);
+  box-shadow: var(--shadow-soft);
+  animation: rise 400ms ease both;
+}
+
+.content-card h4 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+}
+
+.content-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  padding: 0.26rem 0.56rem;
+  border-radius: 999px;
+  border: 1px solid #cbe0d9;
+  background: #f1f8f5;
+  font-size: 0.83rem;
+}
+
+.guide-layout {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.list-block h4 {
+  margin-bottom: 0.5rem;
+}
+
+.clean-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.42rem;
+}
+
+.clean-list li {
+  display: flex;
+  gap: 0.52rem;
+  align-items: flex-start;
+  color: #274148;
+}
+
+.clean-list li::before {
+  content: "";
+  width: 0.58rem;
+  height: 0.58rem;
+  border-radius: 50%;
+  margin-top: 0.34rem;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #33a997, #1a7f79);
+}
+
+.warning-list li::before {
+  background: linear-gradient(135deg, #f0a25d, #cd6f2e);
+}
+
+.resource-list li::before {
+  background: linear-gradient(135deg, #8ea37b, #5f8364);
+}
+
+.callout {
+  border-left: 4px solid #53b9a7;
+  background: #eff8f6;
+  border-radius: var(--radius-sm);
+  padding: 0.72rem 0.78rem;
+  margin: 0.3rem 0 0.2rem;
+  color: #24484a;
+}
+
+.empty-state {
+  margin: 0;
+  color: var(--muted);
+}
+
+.flash-summary {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+}
+
+.flash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.8rem;
+}
+
+.flash-card {
+  border: 1px solid #d8e7e2;
+  border-radius: var(--radius-md);
+  padding: 0.84rem;
+  background: linear-gradient(165deg, #f9fdfa 0%, #f6fbff 100%);
+  cursor: pointer;
+  text-align: left;
+  min-height: 175px;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.flash-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(20, 70, 71, 0.14);
+}
+
+.flash-card.flipped {
+  border-color: #95d7c8;
+  background: linear-gradient(165deg, #ecfaf6 0%, #f7fcfa 100%);
+}
+
+.flash-label {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: #48656c;
+  font-weight: 700;
+}
+
+.flash-front,
+.flash-back {
+  margin: 0.55rem 0 0;
+  line-height: 1.45;
+}
+
+.flash-back {
+  color: #1a4247;
+}
+
+.flash-tip {
+  margin: 0.65rem 0 0;
+  font-size: 0.78rem;
+  color: #638087;
+}
+
+.quiz-card {
+  display: grid;
+  gap: 1rem;
+}
+
+.quiz-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.quiz-meta {
+  margin: 0;
+  color: var(--muted);
+}
+
+.quiz-score {
+  margin: 0;
+  font-weight: 700;
+  color: var(--brand-strong);
+}
+
+.quiz-question {
+  margin: 0;
+  font-size: 1.06rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.quiz-options {
+  display: grid;
+  gap: 0.62rem;
+}
+
+.quiz-option {
+  text-align: left;
+  border: 1px solid #d7e6e0;
+  background: #fbfefd;
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.8rem;
+  cursor: pointer;
+}
+
+.quiz-option:hover {
+  background: #eef8f5;
+}
+
+.quiz-option.correct {
+  border-color: #7fd2bc;
+  background: #e9faf5;
+}
+
+.quiz-option.wrong {
+  border-color: #f2b0a4;
+  background: #fff2ef;
+}
+
+.quiz-feedback {
+  margin: 0;
+  font-weight: 700;
+}
+
+.quiz-feedback.ok {
+  color: #0b7d5f;
+}
+
+.quiz-feedback.fail {
+  color: var(--danger);
+}
+
+.quiz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.quiz-btn {
+  border: 1px solid #cadfd8;
+  background: #f8fcfa;
+  border-radius: 10px;
+  padding: 0.53rem 0.8rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.quiz-btn.primary {
+  border-color: #1b8f87;
+  background: linear-gradient(135deg, #1c9488, #13756e);
+  color: #fff;
+}
+
+.quiz-end {
+  margin: 0;
+  color: #1f3e46;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1080px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0.7rem;
+    right: 0.7rem;
+    top: 4.8rem;
+    bottom: 0.7rem;
+    z-index: 20;
+    background: #f9fdfb;
+    padding: 0.6rem;
+    border-radius: 22px;
+    border: 1px solid #d9e7e2;
+    box-shadow: 0 16px 36px rgba(8, 42, 48, 0.2);
+    overflow-y: auto;
+    transform: translateY(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  body.nav-open .sidebar {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    width: min(95vw, 1100px);
+  }
+
+  .panel {
+    padding: 0.9rem;
+    border-radius: 16px;
+  }
+
+  .stats-grid,
+  .grid-cards,
+  .flash-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+  </div>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-badge">SM</span>
+        <div>
+          <p class="eyebrow">Plataforma de Estudo</p>
+          <h1>Saúde Mental</h1>
+        </div>
+      </div>
+      <button id="navToggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="sidebar">
+        Módulos
+      </button>
+    </header>
+
+    <main class="layout">
+      <aside id="sidebar" class="sidebar" aria-label="Navegação da aplicação">
+        <section class="panel">
+          <h2>Navegação</h2>
+          <div class="search-wrap">
+            <label for="searchInput">Pesquisar no conteúdo</label>
+            <input id="searchInput" type="search" placeholder="Ex: ansiedade, sintomas, suicídio">
+            <div id="searchResults" class="search-results" role="listbox" aria-label="Resultados da pesquisa"></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Módulos de Estudo</h2>
+          <ul id="moduleList" class="module-list"></ul>
+        </section>
+
+        <section class="panel progress-panel">
+          <h2>Progresso</h2>
+          <p id="progressText" class="progress-text">0 de 0 módulos concluídos</p>
+          <div class="progress-track" aria-hidden="true">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+        </section>
+      </aside>
+
+      <section class="main-content">
+        <section class="panel hero">
+          <p class="eyebrow">Aprendizagem Guiada</p>
+          <h2 id="heroTitle">A carregar conteúdo...</h2>
+          <p class="hero-copy">
+            Estuda conceitos, sinais clínicos, estratégias de intervenção e autocuidado através de uma experiência estruturada e interativa.
+          </p>
+          <div id="statsGrid" class="stats-grid"></div>
+        </section>
+
+        <section class="panel controls">
+          <div id="viewSwitcher" class="view-switcher" role="tablist" aria-label="Modos de aprendizagem">
+            <button type="button" class="view-btn active" data-view="conteudo" role="tab" aria-selected="true">Conteúdo</button>
+            <button type="button" class="view-btn" data-view="cartoes" role="tab" aria-selected="false">Cartões</button>
+            <button type="button" class="view-btn" data-view="quiz" role="tab" aria-selected="false">Quiz</button>
+          </div>
+        </section>
+
+        <section id="viewContainer" class="panel view-container" aria-live="polite">
+          <p class="loading">A carregar aplicação...</p>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <noscript>Esta aplicação requer JavaScript para funcionar.</noscript>
+  <script>
+window.MENTAL_HEALTH_QRG_DATA = {
+  "titulo_documento": "Guia de Referência Rápida de Saúde Mental",
+  "definicoes": [
+    {
+      "termo": "Saúde mental",
+      "definicao": "Um estado de bem-estar no qual o indivíduo reconhece as suas próprias capacidades, consegue lidar com o stress normal da vida, pode trabalhar de forma produtiva e frutífera e é capaz de dar um contributo para a sua comunidade (Organização Mundial da Saúde)."
+    },
+    {
+      "termo": "Doença Mental",
+      "definicao": "Um problema de saúde clinicamente significativo que afeta a forma como uma pessoa pensa sobre si mesma e sobre o mundo, como se comporta e como se relaciona com os outros. Pode afetar os pensamentos, as emoções e os comportamentos de uma pessoa. Pode causar algum nível de angústia, sofrimento ou compromisso em uma ou mais áreas da vida. É diagnosticada por um médico ou outro profissional de saúde devidamente credenciado."
+    },
+    {
+      "termo": "Perturbação concorrente",
+      "definicao": "Quando uma pessoa tem uma perturbação por uso de substâncias e outra doença mental ao mesmo tempo."
+    },
+    {
+      "termo": "Problema/questão de saúde mental",
+      "definicao": "Um termo mais abrangente que vai para além dos diagnósticos e pode incluir sintomas ou traços de uma doença mental que podem ou não preencher os critérios para um diagnóstico formal."
+    }
+  ],
+  "categorias_doenca_mental": [
+    {
+      "categoria": "Perturbações de Ansiedade",
+      "tipos": [
+        "Generalizada",
+        "Pânico",
+        "Fobia Específica",
+        "Perturbação Obsessivo-Compulsiva",
+        "Perturbação de Ansiedade Social"
+      ]
+    },
+    {
+      "categoria": "Perturbações do Humor",
+      "tipos": [
+        "Depressão",
+        "Perturbação Bipolar"
+      ]
+    },
+    {
+      "categoria": "Perturbações Psicóticas",
+      "tipos": [
+        "Psicose",
+        "Esquizofrenia"
+      ]
+    },
+    {
+      "categoria": "Perturbações Relacionadas com Trauma",
+      "tipos": [
+        "Perturbação de Stress Pós-Traumático (PSPT)",
+        "Trauma"
+      ]
+    },
+    {
+      "categoria": "Perturbações da Personalidade",
+      "tipos": [
+        "Antissocial",
+        "Borderline",
+        "Narcísica",
+        "Dependente",
+        "Obsessivo-Compulsiva"
+      ]
+    },
+    {
+      "categoria": "Perturbações por Uso de Substâncias",
+      "tipos": [
+        "Álcool",
+        "Cannabis",
+        "Fenciclidina (PCP)/Outros Alucinogénios",
+        "Inalantes",
+        "Opióides",
+        "Sedativos, Hipnóticos ou Ansiolíticos",
+        "Estimulantes",
+        "Tabaco"
+      ]
+    },
+    {
+      "categoria": "Perturbações Alimentares",
+      "tipos": [
+        "Bulimia",
+        "Anorexia",
+        "Perturbação de Ingestão Compulsiva"
+      ]
+    },
+    {
+      "categoria": "Outras Áreas de Preocupação Clínica",
+      "tipos": [
+        "Comportamento de Autoagressão (Autolesão)",
+        "Suicidalidade (Risco de Suicídio)"
+      ]
+    }
+  ],
+  "guias_clinicos": [
+    {
+      "condicao": "Perturbações de Ansiedade",
+      "descricao": "Envolvem níveis excessivos de preocupação e medo e comportamentos relacionados que interferem na vida diária.",
+      "subtipos": [
+        "Perturbação de Ansiedade Generalizada",
+        "Perturbação de Pânico",
+        "Fobias Específicas",
+        "Perturbação de Ansiedade Social",
+        "Perturbação Obsessivo-Compulsiva (POC)"
+      ],
+      "sinais_e_sintomas": [
+        "Ataques de pânico",
+        "Irritabilidade",
+        "Demonstrar excesso de confiança/hostilidade para mascarar a ansiedade",
+        "Falar sobre estar constantemente preocupado",
+        "Isolamento/partilhar pouca informação",
+        "Evitar programas/situações",
+        "Depender excessivamente de outra pessoa",
+        "Envolver-se em comportamentos repetitivos rígidos ou baseados em rituais",
+        "Demonstrar preocupação excessiva ou medos fortes",
+        "Estar inquieto, tenso ou irritável",
+        "Sintomas físicos, incluindo aumento do ritmo cardíaco, respiração rápida ou falta de ar e dor de estômago",
+        "Ter pensamentos/preocupações indesejados ou intrusivos"
+      ],
+      "estrategias_possiveis": [
+        "Ser calmo, empático e encorajador",
+        "Encorajar a respiração lenta e profunda ou um exercício de ancoragem (grounding)",
+        "Ouvir sem julgar",
+        "Encorajá-los a participar nas atividades apesar da ansiedade, mas validar os seus sentimentos",
+        "Conhecer as regras do seu local de trabalho sobre se/quando pode dispensar um cliente de programas ou atividades",
+        "Encorajar o autocuidado e apoiá-los na utilização do seu plano de coping (lidar com a situação)",
+        "Não minimizar nem lhes dizer para se acalmarem",
+        "Promover a prática de exercício físico regular e bons hábitos de sono",
+        "Não os ajudar a evitar o que os deixa ansiosos",
+        "Partilhar os recursos relevantes disponíveis e pedir-lhes que discutam as opções com o seu médico/terapeuta"
+      ]
+    },
+    {
+      "condicao": "Perturbações do Humor",
+      "descricao": "Doenças mentais que afetam principalmente o humor e o estado emocional de uma pessoa por períodos prolongados de tempo ou 'episódios'. Também afetam a cognição e o comportamento da pessoa.",
+      "subtipos": [
+        "Perturbação Depressiva Major (Depressão)",
+        "Perturbação Bipolar"
+      ],
+      "sinais_e_sintomas": [
+        "Tristeza, vontade de chorar ou choro",
+        "Letargia ou falta de energia/cansaço crónico",
+        "Estar com muita energia sem parar",
+        "Falar muito devagar ou muito rápido",
+        "Ganho/perda de peso visível",
+        "Dormir demasiado/muito pouco diariamente",
+        "Falar sobre sentimentos de culpa/inutilidade/desesperança ou ter excesso de confiança irrealista/autoestima inflacionada",
+        "Dificuldade em concentrar-se ou distrair-se facilmente nas atividades",
+        "Falar sobre a morte ou ter pensamentos suicidas",
+        "A duração dos episódios depressivos e maníacos pode variar"
+      ],
+      "estrategias_possiveis": [
+        "Ser encorajador e empático",
+        "Ouvir sem julgar",
+        "Encorajá-los a participar nas atividades",
+        "Encorajá-los a cumprir os pequenos objetivos de atividades diárias que estabeleceram",
+        "Reduzir os fatores de stress ou situações excessivamente estimulantes",
+        "Encorajar hábitos de sono e alimentação saudáveis",
+        "Conhecer as regras do seu local de trabalho sobre se/quando pode dispensar um utente de programas ou atividades",
+        "Encorajar o autocuidado e apoiá-los na utilização do seu plano de coping",
+        "Verificar se têm pensamentos suicidas e estar atento a outros comportamentos de risco"
+      ]
+    },
+    {
+      "condicao": "Perturbações Psicóticas",
+      "descricao": "Um estado mental alterado onde a pessoa tem dificuldade em compreender o que é real e o que não é, e tem perceções, cognições e emoções perturbadas, que interferem no seu funcionamento.",
+      "subtipos": [
+        "Episódio psicótico",
+        "Esquizofrenia"
+      ],
+      "sinais_e_sintomas": [
+        "Dizer coisas que não fazem sentido ou ter crenças bizarras",
+        "Ter dificuldade em encontrar palavras, mudar de assunto ou responder a perguntas com respostas sem relação",
+        "Parecer estar a ter alucinações, como olhar ou falar com alguém que não está lá",
+        "Falar sozinhos ou responder apenas a coisas que conseguem ouvir/sentir",
+        "Tentar convencer os outros dos seus delírios, podendo ficar angustiados com essas crenças",
+        "Frustrar-se facilmente ou parecer confuso ou desorganizado",
+        "Irritabilidade ou explosões de raiva",
+        "Dificuldade em iniciar atividades sozinhos e em seguir rotinas complicadas",
+        "Experienciar pensamentos de se magoarem a si próprios ou outros riscos de segurança"
+      ],
+      "estrategias_possiveis": [
+        "Ser calmo e relaxado",
+        "Dar algum tempo para desabafarem. Ajudar a redirecionar se a pessoa ficar presa nos seus pensamentos",
+        "Não tentar convencê-los de que os seus pensamentos são irracionais",
+        "Empatizar com a angústia/medos sem concordar com o conteúdo dos delírios",
+        "Ajudá-los a encontrar uma distração (ouvir música, ser fisicamente ativo)",
+        "Apoiá-los na comunicação das experiências psicóticas ao seu Médico/Terapeuta",
+        "Encorajá-los a participar um pequeno passo de cada vez, mas manter as regras e limites do programa",
+        "Não dar demasiadas instruções de uma só vez e repetir as coisas se necessário",
+        "Encorajar o autocuidado e a gestão do stress",
+        "Encorajá-los a usar os seus planos pessoais de coping",
+        "Estar atento às suas próprias emoções e reações"
+      ]
+    },
+    {
+      "condicao": "Perturbações da Personalidade",
+      "descricao": "Envolvem padrões persistentes e inflexíveis de experiências internas, comportamentos, humor e interações sociais que se desviam do que é esperado e que causam sofrimento.",
+      "subtipos": [
+        "Paranoide",
+        "Antissocial",
+        "Borderline",
+        "Narcísica",
+        "Dependente",
+        "Obsessivo-Compulsiva"
+      ],
+      "sinais_e_sintomas": [
+        "Demonstrar grande necessidade de atenção em relação aos funcionários e nas atividades",
+        "Pedir atenção a um nível que parece superior à média",
+        "Dificuldade em tomar decisões/pensamento rígido",
+        "Impulsividade",
+        "Ignorar os outros",
+        "Dificuldade em formar relações com os outros",
+        "Parecer ser propositadamente indelicado ou ofensivo para os outros",
+        "Falta de confiança nos funcionários ou noutros",
+        "Dificuldade com regras/estrutura",
+        "Envolver-se em comportamentos preocupantes para tentar satisfazer as suas necessidades"
+      ],
+      "estrategias_possiveis": [
+        "Ser encorajador e empático, mas firme e consistente",
+        "Estabelecer e manter limites – pode ter de ser feito repetidamente",
+        "Impor limites ao seu tempo com eles",
+        "Encorajar a sua autonomia, a capacidade de fazerem as coisas sozinhos",
+        "Capacitá-los para resolverem problemas sozinhos, com apoio se necessário",
+        "Encorajá-los a participar, mas aplicar as regras do programa",
+        "Reforçar as regras, sem ser excessivamente rígido",
+        "Encorajar o autocuidado e apoiá-los na utilização do seu plano de coping",
+        "Não levar a peito e ter atenção às suas próprias reações",
+        "Manter limites na relação sem se envolver excessivamente com nenhum indivíduo",
+        "Evitar pensar nos comportamentos preocupantes como manipulação, vendo-os antes como a pessoa a tentar satisfazer as suas necessidades",
+        "Partilhar os recursos relevantes disponíveis"
+      ]
+    },
+    {
+      "condicao": "Perturbações Alimentares",
+      "descricao": "Padrões persistentes de pensamentos e comportamentos que levam a relações desadaptativas com a comida e a alimentação, causando danos na saúde física ou no funcionamento social.",
+      "subtipos": [
+        "Anorexia",
+        "Bulimia",
+        "Perturbação de Ingestão Compulsiva"
+      ],
+      "sinais_e_sintomas": [
+        "Recusar comer, contar calorias ou evitar certos alimentos",
+        "Comer em excesso",
+        "Brincar com a comida, acumular ou esconder comida",
+        "Falar constantemente sobre o peso ou ter medo do mesmo",
+        "Fazer idas frequentes à casa de banho enquanto come ou logo a seguir",
+        "Ter rituais e rotinas rígidas em torno da comida e do exercício",
+        "Apresentar alterações no peso da pessoa",
+        "Evitar programas/atividades"
+      ],
+      "estrategias_possiveis": [
+        "Ouvir calmamente sem julgar",
+        "Não minimizar os medos em relação ao peso",
+        "Não focar demasiado em conversas sobre comida",
+        "Estar ciente do plano de cuidados para apoiar o indivíduo e informar o médico ou enfermeiro sobre quaisquer preocupações observadas",
+        "Encorajar o autocuidado e apoiar o uso do seu plano de coping",
+        "Encorajá-los a participar nas refeições e atividades",
+        "Partilhar os recursos relevantes disponíveis"
+      ]
+    },
+    {
+      "condicao": "Perturbações Relacionadas com Trauma",
+      "descricao": "O trauma é um evento ou situação contínua que resulta em stress extremo que sobrecarrega a capacidade da pessoa para lidar com a situação.",
+      "subtipos": [
+        "PSPT (Revivescência, Evitamento, Alterações negativas na cognição e humor, Elevado estado de alerta)"
+      ],
+      "sinais_e_sintomas": [
+        "Memórias angustiantes recorrentes, involuntárias e intrusivas",
+        "Pesadelos",
+        "Dissociação (flashbacks)",
+        "Sentimentos de vergonha, culpa e estigma",
+        "Sentimentos de impotência ou desamparo",
+        "Sentir-se desconectado dos outros",
+        "Irritabilidade",
+        "Imprudência (assunção de riscos)",
+        "Hipervigilância (ansioso, em sobressalto)",
+        "Medo devastador; perda de segurança ou confiança",
+        "Dificuldade de concentração",
+        "Dificuldade em dormir"
+      ],
+      "estrategias_possiveis": [
+        "Ser calmo, empático e encorajador",
+        "Ouvir sem julgar",
+        "Encorajar o autocuidado e apoiá-los na utilização do seu plano de coping",
+        "A segurança física, emocional e cultural deve ser considerada",
+        "Ser aberto e honesto sobre decisões e expectativas",
+        "Uma abordagem baseada nos pontos fortes deve ser adotada em todos os momentos",
+        "Encorajar o uso de estratégias de ancoragem (grounding) para ajudar a manter a pessoa no presente",
+        "Verificar se têm pensamentos suicidas e vigiar outros comportamentos de risco",
+        "Desescalar situações lembrando à pessoa que está ali para a ouvir e que é uma pessoa segura com quem falar",
+        "Fomentar um sentido de segurança física e emocional permitindo a escolha, controlo e capacitação",
+        "Partilhar os recursos relevantes disponíveis"
+      ]
+    },
+    {
+      "condicao": "Perturbações por Uso de Substâncias",
+      "descricao": "Uso não controlado de uma substância particular, como álcool ou drogas, que tem consequências nocivas e interfere na capacidade de funcionar.",
+      "subtipos": [
+        "Álcool",
+        "Cannabis",
+        "Fenciclidina (PCP)/Outros Alucinogénios",
+        "Inalantes",
+        "Opióides",
+        "Sedativos, Hipnóticos ou Ansiolíticos",
+        "Estimulantes",
+        "Tabaco"
+      ],
+      "sinais_e_sintomas": [
+        "Ter desejos intensos (cravings) e impulsos para usar ou ser incapaz de reduzir",
+        "Passar muito tempo a obter, usar e recuperar dos efeitos",
+        "Negligenciar responsabilidades",
+        "Desistir de atividades sociais e de lazer importantes",
+        "Problemas de relacionamento",
+        "Irritabilidade ou mudanças de humor",
+        "Alterações nos padrões de sono ou alimentação",
+        "Ser reservado/esconder ou usar sozinho",
+        "Usar em situações de risco ou fazer coisas arriscadas",
+        "Tolerância (precisar de mais para obter o mesmo efeito)",
+        "Sintomas de privação (dores, suores, tremores, náuseas, agitação, etc.)"
+      ],
+      "estrategias_possiveis": [
+        "Ser encorajador e empático e perguntar como pode ser um apoio",
+        "Não julgar e estar ciente dos seus próprios preconceitos/estigmas",
+        "Encorajar hábitos de sono e alimentação saudáveis",
+        "Obter formação sobre como usar um kit de naloxona e responder a uma overdose",
+        "Apoiá-los no uso de competências de recusa e gestão de desejos",
+        "Ajudá-los a responder aos gatilhos usando as suas competências de coping",
+        "Encorajar o autocuidado e apoiá-los a usar o seu plano de coping ou redução de danos",
+        "Partilhar os recursos relevantes disponíveis",
+        "Consultar a sua equipa sobre preocupações"
+      ]
+    },
+    {
+      "condicao": "Autolesão",
+      "descricao": "Atos deliberados que causam danos ao corpo, como cortar, queimar ou bater em si próprio, geralmente sem a intenção de morrer.",
+      "subtipos": [],
+      "sinais_e_sintomas": [
+        "Cicatrizes antigas",
+        "Muitas ligaduras/cortes/ferimentos",
+        "Mangas compridas/calças mesmo com temperaturas quentes",
+        "Falar sobre comportamento de autolesão",
+        "Descoberta de ferramentas usadas para autolesão",
+        "Envolver-se ativamente em autolesão",
+        "Envolver-se ou falar sobre outros comportamentos de risco"
+      ],
+      "estrategias_possiveis": [
+        "Manter a calma e evitar parecer chocado",
+        "Ouvir sem julgar",
+        "Conversar para entender qual foi a intenção ou função do comportamento (ex: para lidar com ou alterar sentimentos)",
+        "Encorajar o uso de competências de coping positivas para tolerância à angústia",
+        "Não minimizar a autolesão",
+        "Tentar não reagir exageradamente aos ferimentos, oferecer ou procurar assistência médica se necessário",
+        "Se estiver preocupado com a saúde ou segurança da pessoa, consulte a sua equipa",
+        "Apoiá-los a manterem-se seguros e minimizar os riscos de acordo com o plano de segurança",
+        "Partilhar os recursos relevantes disponíveis"
+      ]
+    },
+    {
+      "condicao": "Suicidalidade",
+      "descricao": "O suicídio é uma morte autoinfligida (ou tentativa de morrer) onde a pessoa tinha a intenção de morrer. A Ideação Suicida é quando um indivíduo tem pensamentos de pôr fim à própria vida.",
+      "subtipos": [],
+      "sinais_e_sintomas": [
+        "Expressar comentários negativos sobre si mesmo e desesperança sobre o futuro",
+        "Ter pensamentos suicidas, incluindo expressar intenção ou ter um plano",
+        "Despedir-se, doar bens valiosos, organizar a sua vida/assuntos pendentes",
+        "Evitar discussões sobre planos futuros",
+        "Ter uma mudança repentina na aparência ou comportamentos",
+        "Usar substâncias/estar sob a influência",
+        "Períodos de mudança (ex: transições nos cuidados são de maior risco)"
+      ],
+      "estrategias_possiveis": [
+        "Notificar o médico ou supervisor. Ligar para a Resposta de Crise local/112 se estiver ativamente suicida.",
+        "Seguir os protocolos específicos do seu local de trabalho",
+        "Manter a calma, não julgar e ser empático ao ouvir",
+        "Estar ciente dos sinais e sintomas e levar as expressões a sério",
+        "Ser direto e específico ao perguntar sobre ideação suicida",
+        "Estar ciente e evitar linguagem estigmatizante como 'cometeu suicídio' ou 'suicídio bem-sucedido'",
+        "Nunca prometer manter conversas sobre suicídio em segredo",
+        "Ser solidário, mas evitar procurar sempre o 'lado positivo' da situação (ex: não dizer 'pelo menos...'), o que invalida os seus sentimentos",
+        "Encorajar a pessoa a usar o seu plano de segurança e a envolver-se com o seu terapeuta",
+        "Apoiar a pessoa a aceder a serviços de crise e emergência quando necessário"
+      ]
+    }
+  ],
+  "impacto_nos_cuidadores": {
+    "definicoes": {
+      "Fadiga por compaixao": "Um conjunto de reações que resultam de prestar cuidados a outros que estão em sofrimento ou a experienciar dor física ou psicológica.",
+      "Trauma Vicariante": "Uma resposta de exposição ao trauma que ocorre quando o prestador é regularmente confrontado com conteúdo traumático e fica traumatizado após ouvir histórias ou testemunhar o sofrimento dos utentes."
+    },
+    "sinais_e_sintomas": [
+      "Raiva/irritação/tristeza",
+      "Sobressalto ou hipervigilância",
+      "Exaustão ou dificuldades de sono",
+      "Alegria ou criatividade diminuídas",
+      "Incapacidade de empatizar/entorpecimento emocional",
+      "Preocupação/ansiedade/culpa sobre as pessoas que está a ajudar",
+      "Sintomas físicos/alterações na saúde (ex: dor de cabeça, dor de estômago)",
+      "Pensamentos/imagens intrusivas",
+      "Sentido de realização pessoal diminuído",
+      "Aumento do uso de álcool, outras drogas ou jogo",
+      "Sentimentos de desesperança",
+      "Falta de limites / envolvimento excessivo"
+    ],
+    "areas_afetadas": [
+      "Alterações de comportamento",
+      "Problemas nas relações pessoais",
+      "Mudanças nos valores/crenças pessoais",
+      "Produtividade reduzida ou outras preocupações no local de trabalho",
+      "Disrupção da visão do mundo"
+    ],
+    "estrategias_de_autocuidado": {
+      "coisas_a_tentar": [
+        "Fazer pausas para respirar fundo/praticar mindfulness",
+        "Encontrar formas de separar o trabalho de casa",
+        "Praticar exercícios de autocompaixão e gratidão",
+        "Cuidar da sua saúde (sono, alimentação, exercício) e fazer pausas durante o trabalho",
+        "Procurar formas de reconhecer o bom trabalho que está a fazer (reconhecimento mental)"
+      ],
+      "recursos": [
+        "CBTm para Profissionais de Saúde",
+        "Projeto de Consciencialização sobre a Fadiga por Compaixão",
+        "Tend Academy",
+        "Ficha de Dicas sobre Comportamentos Preocupantes",
+        "Wellness Together Canada",
+        "Compaixão: Bondade para Consigo e para com os Outros",
+        "Programa de assistência ao funcionário"
+      ]
+    }
+  },
+  "aprendizagem_adicional": {
+    "fornecedor": "Biblioteca do Centro de Partilha de Conhecimento da Shared Health",
+    "descricao": "Biblioteca que contém informação sobre uso/abuso de substâncias, jogo, saúde mental e questões relacionadas. Oferece informações atualizadas e fiáveis sobre questões, tendências e investigação na área.",
+    "topicos_abordados": [
+      "Perturbações concorrentes",
+      "Aconselhamento / Terapia",
+      "Depressão",
+      "Emoções (Raiva, Ansiedade, Stress)",
+      "Família",
+      "Mindfulness",
+      "Medicamentos de Venda Livre / Sujeitos a Receita Médica",
+      "Parentalidade",
+      "Perturbação de stress pós-traumático / Trauma",
+      "Tratamento / Recuperação"
+    ]
+  }
+};
+  </script>
+  <script>
+const FICHEIRO_DADOS = "mental-health-qrg-UTF8.json";
+const CHAVE_PROGRESSO = "saude_mental_progresso_v1";
+
+const estado = {
+  dados: null,
+  modulos: [],
+  moduloAtualId: null,
+  vistaAtual: "conteudo",
+  carregado: false,
+  concluidos: new Set(),
+  quiz: {
+    perguntas: [],
+    indice: 0,
+    pontuacao: 0,
+    respondida: false,
+    escolha: null
+  }
+};
+
+const ui = {};
+
+document.addEventListener("DOMContentLoaded", arrancarApp);
+
+async function arrancarApp() {
+  mapearElementos();
+  registarEventos();
+
+  try {
+    const dadosEmbebidos = obterDadosEmbebidos();
+    const dadosRaw = dadosEmbebidos ?? (await carregarDados(FICHEIRO_DADOS));
+    estado.dados = normalizarDados(dadosRaw);
+    estado.modulos = construirModulos(estado.dados);
+    estado.moduloAtualId = estado.modulos[0]?.id ?? null;
+    estado.concluidos = carregarProgresso();
+    filtrarProgressoInvalido();
+    estado.carregado = true;
+
+    renderizarCabecalho();
+    renderizarEstatisticas();
+    renderizarNavegacaoModulos();
+    renderizarPesquisa("");
+    renderizarProgresso();
+    renderizarVistaAtual();
+  } catch (erro) {
+    mostrarErro(
+      "Não foi possível carregar os dados da aprendizagem. Confirma que o ficheiro JSON existe e abre a app através de um servidor local."
+    );
+    // eslint-disable-next-line no-console
+    console.error(erro);
+  }
+}
+
+function mapearElementos() {
+  ui.navToggle = document.getElementById("navToggle");
+  ui.searchInput = document.getElementById("searchInput");
+  ui.searchResults = document.getElementById("searchResults");
+  ui.moduleList = document.getElementById("moduleList");
+  ui.progressText = document.getElementById("progressText");
+  ui.progressBar = document.getElementById("progressBar");
+  ui.heroTitle = document.getElementById("heroTitle");
+  ui.statsGrid = document.getElementById("statsGrid");
+  ui.viewSwitcher = document.getElementById("viewSwitcher");
+  ui.viewContainer = document.getElementById("viewContainer");
+}
+
+function registarEventos() {
+  ui.navToggle.addEventListener("click", alternarNavegacaoMobile);
+
+  ui.searchInput.addEventListener("input", (evento) => {
+    renderizarPesquisa(evento.target.value.trim());
+  });
+
+  ui.moduleList.addEventListener("click", (evento) => {
+    if (!estado.carregado) {
+      return;
+    }
+    const botao = evento.target.closest("[data-module-id]");
+    if (!botao) {
+      return;
+    }
+    selecionarModulo(botao.dataset.moduleId);
+  });
+
+  ui.searchResults.addEventListener("click", (evento) => {
+    const botao = evento.target.closest("[data-search-id]");
+    if (!botao) {
+      return;
+    }
+    selecionarModulo(botao.dataset.searchId);
+    ui.searchInput.value = "";
+    renderizarPesquisa("");
+  });
+
+  ui.viewSwitcher.addEventListener("click", (evento) => {
+    if (!estado.carregado) {
+      return;
+    }
+    const botao = evento.target.closest("[data-view]");
+    if (!botao) {
+      return;
+    }
+
+    estado.vistaAtual = botao.dataset.view;
+    sincronizarBotoesVista();
+    if (estado.vistaAtual === "quiz" && estado.quiz.perguntas.length === 0) {
+      iniciarQuiz();
+    }
+    renderizarVistaAtual();
+  });
+
+  ui.viewContainer.addEventListener("click", (evento) => {
+    const acao = evento.target.closest("[data-action]");
+    if (!acao) {
+      return;
+    }
+
+    const tipoAcao = acao.dataset.action;
+    if (tipoAcao === "toggle-complete") {
+      alternarConclusaoModuloAtual();
+      return;
+    }
+
+    if (tipoAcao === "flip-card") {
+      alternarCartao(acao);
+      return;
+    }
+
+    if (tipoAcao === "quiz-answer") {
+      responderQuiz(Number(acao.dataset.optionIndex));
+      return;
+    }
+
+    if (tipoAcao === "quiz-next") {
+      avancarQuiz();
+      return;
+    }
+
+    if (tipoAcao === "quiz-restart") {
+      iniciarQuiz();
+      renderizarVistaAtual();
+    }
+  });
+}
+
+async function carregarDados(caminho) {
+  const candidatos = [caminho, `./${caminho}`];
+  let ultimoErro = null;
+
+  for (const candidato of candidatos) {
+    try {
+      const resposta = await fetch(candidato, { cache: "no-store" });
+      if (!resposta.ok) {
+        ultimoErro = new Error(`Falha ao carregar ${candidato}: ${resposta.status}`);
+        continue;
+      }
+      const texto = await resposta.text();
+      const semBom = texto.charCodeAt(0) === 0xfeff ? texto.slice(1) : texto;
+      return JSON.parse(semBom);
+    } catch (erro) {
+      ultimoErro = erro;
+    }
+  }
+
+  throw ultimoErro ?? new Error("Falha desconhecida no carregamento dos dados.");
+}
+
+function obterDadosEmbebidos() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+  const dados = window.MENTAL_HEALTH_QRG_DATA;
+  if (!dados || typeof dados !== "object") {
+    return null;
+  }
+  return dados;
+}
+
+function normalizarDados(raw) {
+  const definicoes = (raw.definicoes ?? raw.definitions ?? []).map((item) => ({
+    termo: item.termo ?? item.term ?? "",
+    definicao: item.definicao ?? item.definition ?? ""
+  }));
+
+  const categorias = (raw.categorias_doenca_mental ?? raw.categories_of_mental_illness ?? []).map((item) => ({
+    categoria: item.categoria ?? item.category ?? "",
+    tipos: item.tipos ?? item.types ?? []
+  }));
+
+  const guias = (raw.guias_clinicos ?? raw.clinical_guides ?? []).map((guia) => ({
+    condicao: guia.condicao ?? guia.condition ?? "",
+    descricao: guia.descricao ?? guia.description ?? "",
+    subtipos: guia.subtipos ?? guia.subtypes ?? [],
+    sinais: guia.sinais_e_sintomas ?? guia.signs_and_symptoms ?? [],
+    estrategias: guia.estrategias_possiveis ?? guia.possible_strategies ?? []
+  }));
+
+  const impactoRaw = raw.impacto_nos_cuidadores ?? raw.impact_on_helpers ?? {};
+  const autocuidadoRaw =
+    impactoRaw.estrategias_de_autocuidado ?? impactoRaw.strategies_for_self_care ?? {};
+
+  const impacto = {
+    definicoes: impactoRaw.definicoes ?? impactoRaw.definitions ?? {},
+    sinais: impactoRaw.sinais_e_sintomas ?? impactoRaw.signs_and_symptoms ?? [],
+    areas: impactoRaw.areas_afetadas ?? impactoRaw.life_areas_impacted ?? [],
+    autocuidado: {
+      coisas_a_tentar: autocuidadoRaw.coisas_a_tentar ?? autocuidadoRaw.things_to_try ?? [],
+      recursos: autocuidadoRaw.recursos ?? autocuidadoRaw.resources ?? []
+    }
+  };
+
+  const aprendizagemRaw = raw.aprendizagem_adicional ?? raw.further_learning ?? {};
+  const aprendizagem = {
+    fornecedor: aprendizagemRaw.fornecedor ?? aprendizagemRaw.provider ?? "",
+    descricao: aprendizagemRaw.descricao ?? aprendizagemRaw.description ?? "",
+    topicos: aprendizagemRaw.topicos_abordados ?? aprendizagemRaw.topics_covered ?? []
+  };
+
+  return {
+    titulo: raw.titulo_documento ?? raw.document_title ?? "Guia de Saúde Mental",
+    definicoes,
+    categorias,
+    guias,
+    impacto,
+    aprendizagem
+  };
+}
+
+function construirModulos(dados) {
+  const base = [];
+
+  base.push({
+    id: "definicoes",
+    tipo: "definicoes",
+    titulo: "Definições Essenciais",
+    subtitulo: "Conceitos base para interpretação clínica e intervenção.",
+    payload: dados.definicoes
+  });
+
+  base.push({
+    id: "categorias",
+    tipo: "categorias",
+    titulo: "Categorias de Doença Mental",
+    subtitulo: "Mapa global das principais áreas diagnósticas.",
+    payload: dados.categorias
+  });
+
+  dados.guias.forEach((guia, indice) => {
+    base.push({
+      id: `guia-${indice + 1}-${slug(guia.condicao)}`,
+      tipo: "guia",
+      titulo: guia.condicao,
+      subtitulo: guia.descricao,
+      payload: guia
+    });
+  });
+
+  base.push({
+    id: "impacto-cuidadores",
+    tipo: "impacto",
+    titulo: "Impacto nos Cuidadores",
+    subtitulo: "Fadiga por compaixão, trauma vicariante e autocuidado.",
+    payload: dados.impacto
+  });
+
+  base.push({
+    id: "aprendizagem-adicional",
+    tipo: "aprendizagem",
+    titulo: "Aprendizagem Adicional",
+    subtitulo: "Recursos de formação contínua e temas de aprofundamento.",
+    payload: dados.aprendizagem
+  });
+
+  return base.map((modulo, indice) => ({
+    ...modulo,
+    ordem: indice + 1,
+    pesquisa: extrairTexto(modulo.payload).toLowerCase()
+  }));
+}
+
+function renderizarCabecalho() {
+  ui.heroTitle.textContent = estado.dados.titulo;
+}
+
+function renderizarEstatisticas() {
+  const totalSinais = estado.dados.guias.reduce((acc, guia) => acc + guia.sinais.length, 0);
+  const totalEstrategias = estado.dados.guias.reduce((acc, guia) => acc + guia.estrategias.length, 0);
+
+  const cards = [
+    { valor: estado.modulos.length, label: "Módulos" },
+    { valor: estado.dados.definicoes.length, label: "Definições" },
+    { valor: estado.dados.categorias.length, label: "Categorias" },
+    { valor: estado.dados.guias.length, label: "Guias Clínicos" },
+    { valor: totalSinais, label: "Sinais e Sintomas" },
+    { valor: totalEstrategias, label: "Estratégias" }
+  ];
+
+  ui.statsGrid.innerHTML = cards
+    .map(
+      (card) => `
+      <article class="stat-card">
+        <p class="stat-value">${card.valor}</p>
+        <p class="stat-label">${card.label}</p>
+      </article>
+    `
+    )
+    .join("");
+}
+
+function renderizarNavegacaoModulos() {
+  ui.moduleList.innerHTML = estado.modulos
+    .map((modulo) => {
+      const ativo = modulo.id === estado.moduloAtualId ? "active" : "";
+      const concluido = estado.concluidos.has(modulo.id) ? "done" : "";
+      return `
+        <li>
+          <button type="button" class="module-btn ${ativo}" data-module-id="${modulo.id}">
+            <div>
+              <span class="module-text">${esc(modulo.titulo)}</span>
+              <span class="module-meta">Módulo ${modulo.ordem} · ${rotuloTipo(modulo.tipo)}</span>
+            </div>
+            <span class="status-pill ${concluido}" aria-hidden="true"></span>
+          </button>
+        </li>
+      `;
+    })
+    .join("");
+}
+
+function renderizarProgresso() {
+  const total = estado.modulos.length;
+  const feitos = estado.concluidos.size;
+  const percentagem = total === 0 ? 0 : Math.round((feitos / total) * 100);
+
+  ui.progressText.textContent = `${feitos} de ${total} módulos concluídos (${percentagem}%)`;
+  ui.progressBar.style.width = `${percentagem}%`;
+}
+
+function renderizarPesquisa(termo) {
+  if (!termo || termo.length < 2) {
+    ui.searchResults.innerHTML = '<p class="search-empty">Escreve pelo menos 2 caracteres para pesquisar.</p>';
+    return;
+  }
+
+  const query = termo.toLowerCase();
+  const encontrados = estado.modulos
+    .filter((modulo) => modulo.titulo.toLowerCase().includes(query) || modulo.pesquisa.includes(query))
+    .slice(0, 8);
+
+  if (encontrados.length === 0) {
+    ui.searchResults.innerHTML = '<p class="search-empty">Sem resultados para esta pesquisa.</p>';
+    return;
+  }
+
+  ui.searchResults.innerHTML = encontrados
+    .map(
+      (modulo) => `
+      <button type="button" class="search-result-btn" data-search-id="${modulo.id}">
+        <span class="search-result-title">${esc(modulo.titulo)}</span>
+        <span class="search-result-type">${rotuloTipo(modulo.tipo)}</span>
+      </button>
+    `
+    )
+    .join("");
+}
+
+function selecionarModulo(moduloId) {
+  if (!estado.modulos.some((modulo) => modulo.id === moduloId)) {
+    return;
+  }
+  estado.moduloAtualId = moduloId;
+  renderizarNavegacaoModulos();
+  renderizarVistaAtual();
+  fecharNavegacaoMobile();
+}
+
+function sincronizarBotoesVista() {
+  const botoes = ui.viewSwitcher.querySelectorAll("[data-view]");
+  botoes.forEach((botao) => {
+    const ativo = botao.dataset.view === estado.vistaAtual;
+    botao.classList.toggle("active", ativo);
+    botao.setAttribute("aria-selected", ativo ? "true" : "false");
+  });
+}
+
+function renderizarVistaAtual() {
+  if (!estado.carregado) {
+    ui.viewContainer.innerHTML = '<p class="loading">A carregar aplicação...</p>';
+    return;
+  }
+
+  if (estado.modulos.length === 0) {
+    mostrarErro("Sem módulos disponíveis.");
+    return;
+  }
+
+  const modulo = obterModuloAtual();
+  if (!modulo) {
+    mostrarErro("Módulo não encontrado.");
+    return;
+  }
+
+  if (estado.vistaAtual === "conteudo") {
+    renderizarConteudo(modulo);
+    return;
+  }
+
+  if (estado.vistaAtual === "cartoes") {
+    renderizarCartoes(modulo);
+    return;
+  }
+
+  if (estado.vistaAtual === "quiz") {
+    renderizarQuiz();
+  }
+}
+
+function renderizarConteudo(modulo) {
+  const concluido = estado.concluidos.has(modulo.id);
+  const cabecalho = `
+    <header class="section-header">
+      <div>
+        <h3>${esc(modulo.titulo)}</h3>
+        <p class="section-subtitle">${esc(modulo.subtitulo ?? "")}</p>
+      </div>
+      <button type="button" class="complete-btn ${concluido ? "done" : ""}" data-action="toggle-complete">
+        ${concluido ? "Módulo concluído" : "Marcar como concluído"}
+      </button>
+    </header>
+  `;
+
+  let corpo = "";
+  if (modulo.tipo === "definicoes") {
+    corpo = renderizarBlocoDefinicoes(modulo.payload);
+  } else if (modulo.tipo === "categorias") {
+    corpo = renderizarBlocoCategorias(modulo.payload);
+  } else if (modulo.tipo === "guia") {
+    corpo = renderizarBlocoGuia(modulo.payload);
+  } else if (modulo.tipo === "impacto") {
+    corpo = renderizarBlocoImpacto(modulo.payload);
+  } else if (modulo.tipo === "aprendizagem") {
+    corpo = renderizarBlocoAprendizagem(modulo.payload);
+  }
+
+  ui.viewContainer.innerHTML = cabecalho + corpo;
+}
+
+function renderizarBlocoDefinicoes(definicoes) {
+  if (!definicoes.length) {
+    return '<p class="empty-state">Sem definições disponíveis.</p>';
+  }
+
+  return `
+    <section class="grid-cards">
+      ${definicoes
+        .map(
+          (item) => `
+            <article class="content-card">
+              <h4>${esc(item.termo)}</h4>
+              <p>${esc(item.definicao)}</p>
+            </article>
+          `
+        )
+        .join("")}
+    </section>
+  `;
+}
+
+function renderizarBlocoCategorias(categorias) {
+  if (!categorias.length) {
+    return '<p class="empty-state">Sem categorias disponíveis.</p>';
+  }
+
+  return `
+    <section class="grid-cards">
+      ${categorias
+        .map(
+          (item) => `
+            <article class="content-card">
+              <h4>${esc(item.categoria)}</h4>
+              <div class="chip-wrap">
+                ${(item.tipos ?? []).map((tipo) => `<span class="chip">${esc(tipo)}</span>`).join("")}
+              </div>
+            </article>
+          `
+        )
+        .join("")}
+    </section>
+  `;
+}
+
+function renderizarBlocoGuia(guia) {
+  const listaSubtipos = listaHtml(guia.subtipos);
+  const listaSinais = listaHtml(guia.sinais, "warning-list");
+  const listaEstrategias = listaHtml(guia.estrategias);
+  const alertaSuicidio =
+    guia.condicao.toLowerCase().includes("suicid") || guia.condicao.toLowerCase().includes("auto")
+      ? `
+        <p class="callout">
+          Prioriza sempre segurança imediata, comunicação com equipa clínica e cumprimento dos protocolos formais da instituição.
+        </p>
+      `
+      : "";
+
+  return `
+    <section class="guide-layout">
+      <article class="content-card">
+        <h4>Descrição Clínica</h4>
+        <p>${esc(guia.descricao)}</p>
+        ${alertaSuicidio}
+      </article>
+
+      <article class="content-card list-block">
+        <h4>Subtipos</h4>
+        ${listaSubtipos}
+      </article>
+
+      <article class="content-card list-block">
+        <h4>Sinais e Sintomas</h4>
+        ${listaSinais}
+      </article>
+
+      <article class="content-card list-block">
+        <h4>Estratégias Possíveis</h4>
+        ${listaEstrategias}
+      </article>
+    </section>
+  `;
+}
+
+function renderizarBlocoImpacto(impacto) {
+  const definicoes = Object.entries(impacto.definicoes ?? {});
+  const blocoDefinicoes = definicoes
+    .map(
+      ([termo, descricao]) => `
+      <article class="content-card">
+        <h4>${esc(termo)}</h4>
+        <p>${esc(descricao)}</p>
+      </article>
+    `
+    )
+    .join("");
+
+  return `
+    <section class="guide-layout">
+      <article class="content-card list-block">
+        <h4>Conceitos-Chave</h4>
+        <div class="grid-cards">
+          ${blocoDefinicoes}
+        </div>
+      </article>
+
+      <article class="content-card list-block">
+        <h4>Sinais e Sintomas nos Cuidadores</h4>
+        ${listaHtml(impacto.sinais, "warning-list")}
+      </article>
+
+      <article class="content-card list-block">
+        <h4>Áreas de Impacto</h4>
+        ${listaHtml(impacto.areas)}
+      </article>
+
+      <article class="content-card list-block">
+        <h4>Estratégias de Autocuidado</h4>
+        <h5>Coisas a Tentar</h5>
+        ${listaHtml(impacto.autocuidado.coisas_a_tentar)}
+        <h5>Recursos Recomendados</h5>
+        ${listaHtml(impacto.autocuidado.recursos, "resource-list")}
+      </article>
+    </section>
+  `;
+}
+
+function renderizarBlocoAprendizagem(aprendizagem) {
+  return `
+    <section class="guide-layout">
+      <article class="content-card">
+        <h4>Entidade</h4>
+        <p>${esc(aprendizagem.fornecedor)}</p>
+      </article>
+
+      <article class="content-card">
+        <h4>Descrição</h4>
+        <p>${esc(aprendizagem.descricao)}</p>
+      </article>
+
+      <article class="content-card list-block">
+        <h4>Tópicos Abrangidos</h4>
+        ${listaHtml(aprendizagem.topicos)}
+      </article>
+    </section>
+  `;
+}
+
+function renderizarCartoes(modulo) {
+  const cartoes = construirCartoes(modulo);
+  if (!cartoes.length) {
+    ui.viewContainer.innerHTML = '<p class="empty-state">Sem cartões disponíveis para este módulo.</p>';
+    return;
+  }
+
+  ui.viewContainer.innerHTML = `
+    <header class="section-header">
+      <div>
+        <h3>Cartões de Estudo: ${esc(modulo.titulo)}</h3>
+        <p class="section-subtitle">Clica em cada cartão para ver a resposta.</p>
+      </div>
+    </header>
+    <p class="flash-summary">${cartoes.length} cartões gerados a partir deste módulo.</p>
+    <section class="flash-grid">
+      ${cartoes
+        .map(
+          (cartao, indice) => `
+            <button type="button" class="flash-card" data-action="flip-card" data-card-index="${indice}" aria-expanded="false">
+              <p class="flash-label">${esc(cartao.etiqueta)}</p>
+              <p class="flash-front">${esc(cartao.frente)}</p>
+              <p class="flash-back" hidden>${esc(cartao.verso)}</p>
+              <p class="flash-tip">Toque para revelar</p>
+            </button>
+          `
+        )
+        .join("")}
+    </section>
+  `;
+}
+
+function construirCartoes(modulo) {
+  if (modulo.tipo === "definicoes") {
+    return modulo.payload.map((item) => ({
+      etiqueta: "Definição",
+      frente: item.termo,
+      verso: item.definicao
+    }));
+  }
+
+  if (modulo.tipo === "categorias") {
+    const cartoes = [];
+    modulo.payload.forEach((categoria) => {
+      (categoria.tipos ?? []).forEach((tipo) => {
+        cartoes.push({
+          etiqueta: "Categoria",
+          frente: `A que categoria pertence "${tipo}"?`,
+          verso: categoria.categoria
+        });
+      });
+    });
+    return cartoes;
+  }
+
+  if (modulo.tipo === "guia") {
+    const guia = modulo.payload;
+    const cartoes = [
+      {
+        etiqueta: "Condição",
+        frente: guia.condicao,
+        verso: guia.descricao
+      }
+    ];
+
+    guia.subtipos.forEach((subtipo) => {
+      cartoes.push({
+        etiqueta: "Subtipo",
+        frente: `Indica um subtipo relacionado com ${guia.condicao}.`,
+        verso: subtipo
+      });
+    });
+
+    guia.sinais.forEach((sinal) => {
+      cartoes.push({
+        etiqueta: "Sinal/Sintoma",
+        frente: `Refere um sinal de ${guia.condicao}.`,
+        verso: sinal
+      });
+    });
+
+    guia.estrategias.forEach((estrategia) => {
+      cartoes.push({
+        etiqueta: "Estratégia",
+        frente: `Qual é uma estratégia possível para ${guia.condicao}?`,
+        verso: estrategia
+      });
+    });
+    return cartoes;
+  }
+
+  if (modulo.tipo === "impacto") {
+    const cartoes = [];
+    Object.entries(modulo.payload.definicoes ?? {}).forEach(([termo, definicao]) => {
+      cartoes.push({
+        etiqueta: "Impacto",
+        frente: termo,
+        verso: definicao
+      });
+    });
+
+    modulo.payload.sinais.forEach((item) => {
+      cartoes.push({
+        etiqueta: "Sinal em Cuidadores",
+        frente: "Identifica um sinal de fadiga por compaixão/trauma vicariante.",
+        verso: item
+      });
+    });
+
+    modulo.payload.areas.forEach((item) => {
+      cartoes.push({
+        etiqueta: "Área Afetada",
+        frente: "Indica uma área de impacto para cuidadores.",
+        verso: item
+      });
+    });
+
+    modulo.payload.autocuidado.coisas_a_tentar.forEach((item) => {
+      cartoes.push({
+        etiqueta: "Autocuidado",
+        frente: "Indica uma prática de autocuidado recomendada.",
+        verso: item
+      });
+    });
+    return cartoes;
+  }
+
+  if (modulo.tipo === "aprendizagem") {
+    const cartoes = [
+      {
+        etiqueta: "Recurso",
+        frente: "Qual é a entidade indicada para aprendizagem adicional?",
+        verso: modulo.payload.fornecedor
+      },
+      {
+        etiqueta: "Descrição",
+        frente: "Como é descrita a biblioteca de aprendizagem adicional?",
+        verso: modulo.payload.descricao
+      }
+    ];
+
+    modulo.payload.topicos.forEach((item) => {
+      cartoes.push({
+        etiqueta: "Tópico",
+        frente: "Indica um tópico de aprendizagem adicional.",
+        verso: item
+      });
+    });
+    return cartoes;
+  }
+
+  return [];
+}
+
+function alternarCartao(botao) {
+  const parteFrente = botao.querySelector(".flash-front");
+  const parteVerso = botao.querySelector(".flash-back");
+  const dica = botao.querySelector(".flash-tip");
+  const virado = botao.classList.toggle("flipped");
+
+  if (!parteFrente || !parteVerso || !dica) {
+    return;
+  }
+
+  parteFrente.hidden = virado;
+  parteVerso.hidden = !virado;
+  dica.textContent = virado ? "Toque para voltar" : "Toque para revelar";
+  botao.setAttribute("aria-expanded", virado ? "true" : "false");
+}
+
+function iniciarQuiz() {
+  estado.quiz = {
+    perguntas: gerarPerguntasQuiz(10),
+    indice: 0,
+    pontuacao: 0,
+    respondida: false,
+    escolha: null
+  };
+}
+
+function renderizarQuiz() {
+  if (!estado.quiz.perguntas.length) {
+    iniciarQuiz();
+  }
+
+  const terminou = estado.quiz.indice >= estado.quiz.perguntas.length;
+  if (terminou) {
+    const total = estado.quiz.perguntas.length;
+    const score = estado.quiz.pontuacao;
+    const percentagem = total === 0 ? 0 : Math.round((score / total) * 100);
+
+    ui.viewContainer.innerHTML = `
+      <section class="quiz-card">
+        <header class="section-header">
+          <div>
+            <h3>Quiz Concluído</h3>
+            <p class="section-subtitle">Avalia a tua retenção de conteúdos clínicos.</p>
+          </div>
+        </header>
+        <p class="quiz-end">Resultado final: <strong>${score}/${total}</strong> (${percentagem}%).</p>
+        <div class="quiz-actions">
+          <button type="button" class="quiz-btn primary" data-action="quiz-restart">Reiniciar Quiz</button>
+          <button type="button" class="quiz-btn" data-action="toggle-complete">Marcar módulo atual como concluído</button>
+        </div>
+      </section>
+    `;
+    return;
+  }
+
+  const pergunta = estado.quiz.perguntas[estado.quiz.indice];
+  const progresso = Math.round((estado.quiz.indice / estado.quiz.perguntas.length) * 100);
+
+  ui.viewContainer.innerHTML = `
+    <section class="quiz-card">
+      <div class="quiz-head">
+        <p class="quiz-meta">Pergunta ${estado.quiz.indice + 1} de ${estado.quiz.perguntas.length}</p>
+        <p class="quiz-score">Pontuação: ${estado.quiz.pontuacao}</p>
+      </div>
+      <div class="progress-track" aria-hidden="true">
+        <div class="progress-bar" style="width:${progresso}%"></div>
+      </div>
+      <p class="quiz-question">${esc(pergunta.pergunta)}</p>
+      <div class="quiz-options">
+        ${pergunta.opcoes
+          .map((opcao, indice) => {
+            const classes = classesOpcaoQuiz(indice, pergunta);
+            return `
+              <button type="button" class="quiz-option ${classes}" data-action="quiz-answer" data-option-index="${indice}" ${
+                estado.quiz.respondida ? "disabled" : ""
+              }>
+                ${esc(opcao)}
+              </button>
+            `;
+          })
+          .join("")}
+      </div>
+      ${feedbackQuiz(pergunta)}
+      <div class="quiz-actions">
+        <button type="button" class="quiz-btn primary" data-action="quiz-next" ${estado.quiz.respondida ? "" : "disabled"}>
+          ${estado.quiz.indice === estado.quiz.perguntas.length - 1 ? "Ver Resultado" : "Próxima Pergunta"}
+        </button>
+        <button type="button" class="quiz-btn" data-action="quiz-restart">Novo Quiz</button>
+      </div>
+    </section>
+  `;
+}
+
+function gerarPerguntasQuiz(limite) {
+  const factos = construirFactosQuiz();
+  const selecionados = baralhar([...factos]).slice(0, limite);
+  const universoOpcoes = Array.from(new Set(factos.map((f) => f.correta)));
+
+  return selecionados.map((facto) => {
+    const baseDistratores = (facto.pool ?? []).filter((item) => item !== facto.correta);
+    const distratores = baralhar([...new Set(baseDistratores)]).slice(0, 3);
+
+    while (distratores.length < 3) {
+      const candidato = universoOpcoes[Math.floor(Math.random() * universoOpcoes.length)];
+      if (candidato && candidato !== facto.correta && !distratores.includes(candidato)) {
+        distratores.push(candidato);
+      } else {
+        break;
+      }
+    }
+
+    const opcoes = baralhar([facto.correta, ...distratores]).slice(0, 4);
+    return {
+      pergunta: facto.pergunta,
+      correta: facto.correta,
+      opcoes
+    };
+  });
+}
+
+function construirFactosQuiz() {
+  const factos = [];
+
+  const termos = estado.dados.definicoes.map((item) => item.termo);
+  estado.dados.definicoes.forEach((item) => {
+    factos.push({
+      pergunta: `Que termo corresponde a esta definição?\n"${resumir(item.definicao, 170)}"`,
+      correta: item.termo,
+      pool: termos
+    });
+  });
+
+  const categorias = estado.dados.categorias.map((item) => item.categoria);
+  estado.dados.categorias.forEach((categoria) => {
+    categoria.tipos.forEach((tipo) => {
+      factos.push({
+        pergunta: `A que categoria pertence o tipo "${tipo}"?`,
+        correta: categoria.categoria,
+        pool: categorias
+      });
+    });
+  });
+
+  const condicoes = estado.dados.guias.map((guia) => guia.condicao);
+  estado.dados.guias.forEach((guia) => {
+    guia.sinais.forEach((sinal) => {
+      factos.push({
+        pergunta: `Este sinal/sintoma está associado a que condição?\n"${resumir(sinal, 130)}"`,
+        correta: guia.condicao,
+        pool: condicoes
+      });
+    });
+
+    guia.estrategias.forEach((estrategia) => {
+      factos.push({
+        pergunta: `Esta estratégia pertence a que condição?\n"${resumir(estrategia, 130)}"`,
+        correta: guia.condicao,
+        pool: condicoes
+      });
+    });
+  });
+
+  const termosImpacto = Object.keys(estado.dados.impacto.definicoes);
+  Object.entries(estado.dados.impacto.definicoes).forEach(([termo, descricao]) => {
+    factos.push({
+      pergunta: `No contexto dos cuidadores, que termo corresponde a esta definição?\n"${resumir(descricao, 150)}"`,
+      correta: termo,
+      pool: termosImpacto
+    });
+  });
+
+  const topicos = estado.dados.aprendizagem.topicos;
+  topicos.forEach((topico) => {
+    factos.push({
+      pergunta: "Qual destes tópicos consta da secção de aprendizagem adicional?",
+      correta: topico,
+      pool: topicos
+    });
+  });
+
+  return factos;
+}
+
+function responderQuiz(indiceOpcao) {
+  if (estado.quiz.respondida) {
+    return;
+  }
+
+  const pergunta = estado.quiz.perguntas[estado.quiz.indice];
+  if (!pergunta) {
+    return;
+  }
+
+  estado.quiz.escolha = indiceOpcao;
+  estado.quiz.respondida = true;
+  if (pergunta.opcoes[indiceOpcao] === pergunta.correta) {
+    estado.quiz.pontuacao += 1;
+  }
+  renderizarQuiz();
+}
+
+function avancarQuiz() {
+  if (!estado.quiz.respondida) {
+    return;
+  }
+
+  estado.quiz.indice += 1;
+  estado.quiz.respondida = false;
+  estado.quiz.escolha = null;
+  renderizarQuiz();
+}
+
+function classesOpcaoQuiz(indiceOpcao, pergunta) {
+  if (!estado.quiz.respondida) {
+    return "";
+  }
+  const escolha = estado.quiz.escolha;
+  const valor = pergunta.opcoes[indiceOpcao];
+  if (valor === pergunta.correta) {
+    return "correct";
+  }
+  if (indiceOpcao === escolha && valor !== pergunta.correta) {
+    return "wrong";
+  }
+  return "";
+}
+
+function feedbackQuiz(pergunta) {
+  if (!estado.quiz.respondida) {
+    return "";
+  }
+  const opcaoSelecionada = pergunta.opcoes[estado.quiz.escolha];
+  const correto = opcaoSelecionada === pergunta.correta;
+  const classe = correto ? "ok" : "fail";
+  const mensagem = correto
+    ? "Resposta correta."
+    : `Resposta incorreta. Correta: ${pergunta.correta}.`;
+  return `<p class="quiz-feedback ${classe}">${esc(mensagem)}</p>`;
+}
+
+function alternarConclusaoModuloAtual() {
+  const modulo = obterModuloAtual();
+  if (!modulo) {
+    return;
+  }
+
+  if (estado.concluidos.has(modulo.id)) {
+    estado.concluidos.delete(modulo.id);
+  } else {
+    estado.concluidos.add(modulo.id);
+  }
+
+  guardarProgresso();
+  renderizarNavegacaoModulos();
+  renderizarProgresso();
+  renderizarVistaAtual();
+}
+
+function carregarProgresso() {
+  try {
+    const bruto = localStorage.getItem(CHAVE_PROGRESSO);
+    if (!bruto) {
+      return new Set();
+    }
+    const lista = JSON.parse(bruto);
+    if (!Array.isArray(lista)) {
+      return new Set();
+    }
+    return new Set(lista);
+  } catch {
+    return new Set();
+  }
+}
+
+function guardarProgresso() {
+  localStorage.setItem(CHAVE_PROGRESSO, JSON.stringify(Array.from(estado.concluidos)));
+}
+
+function filtrarProgressoInvalido() {
+  const idsValidos = new Set(estado.modulos.map((modulo) => modulo.id));
+  estado.concluidos.forEach((id) => {
+    if (!idsValidos.has(id)) {
+      estado.concluidos.delete(id);
+    }
+  });
+  guardarProgresso();
+}
+
+function obterModuloAtual() {
+  return estado.modulos.find((modulo) => modulo.id === estado.moduloAtualId);
+}
+
+function alternarNavegacaoMobile() {
+  const aberto = document.body.classList.toggle("nav-open");
+  ui.navToggle.setAttribute("aria-expanded", aberto ? "true" : "false");
+}
+
+function fecharNavegacaoMobile() {
+  document.body.classList.remove("nav-open");
+  ui.navToggle.setAttribute("aria-expanded", "false");
+}
+
+function mostrarErro(mensagem) {
+  ui.viewContainer.innerHTML = `<p class="empty-state">${esc(mensagem)}</p>`;
+}
+
+function listaHtml(lista, classeExtra = "") {
+  if (!lista || lista.length === 0) {
+    return '<p class="empty-state">Sem itens nesta secção.</p>';
+  }
+  return `
+    <ul class="clean-list ${classeExtra}">
+      ${lista.map((item) => `<li>${esc(item)}</li>`).join("")}
+    </ul>
+  `;
+}
+
+function extrairTexto(valor) {
+  if (valor == null) {
+    return "";
+  }
+  if (typeof valor === "string" || typeof valor === "number" || typeof valor === "boolean") {
+    return String(valor);
+  }
+  if (Array.isArray(valor)) {
+    return valor.map(extrairTexto).join(" ");
+  }
+  return Object.values(valor)
+    .map(extrairTexto)
+    .join(" ");
+}
+
+function resumir(texto, limite) {
+  if (!texto) {
+    return "";
+  }
+  if (texto.length <= limite) {
+    return texto;
+  }
+  return `${texto.slice(0, limite - 1).trimEnd()}…`;
+}
+
+function rotuloTipo(tipo) {
+  const mapa = {
+    definicoes: "Conceitos",
+    categorias: "Mapa Diagnóstico",
+    guia: "Guia Clínico",
+    impacto: "Bem-estar do Cuidador",
+    aprendizagem: "Recursos"
+  };
+  return mapa[tipo] ?? "Módulo";
+}
+
+function esc(valor) {
+  const texto = valor == null ? "" : String(valor);
+  return texto
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function slug(texto) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 40);
+}
+
+function baralhar(lista) {
+  for (let i = lista.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [lista[i], lista[j]] = [lista[j], lista[i]];
+  }
+  return lista;
+}
+
+  </script>
+</body>
+</html>
