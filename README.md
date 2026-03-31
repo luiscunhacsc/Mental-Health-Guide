@@ -50,4 +50,4 @@ Esta aplicação é **educativa**.
 MIT License
 
 ## Autoria
-(C) LSC, 2026
+(C) Luís Simões da Cunha (LSC), 2026
