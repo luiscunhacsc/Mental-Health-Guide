@@ -10,23 +10,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
 :root {
-  --bg: #f1f7f5;
+  --bg: #eef3f8;
   --surface: #ffffff;
-  --surface-muted: #edf4f1;
-  --ink: #162328;
-  --muted: #4f646b;
-  --brand: #0f766e;
-  --brand-strong: #0a5d58;
-  --accent: #ef8354;
-  --soft-accent: #ffd7c6;
-  --ok: #2a9d8f;
+  --surface-muted: #f3f6fb;
+  --ink: #0f1f33;
+  --ink-soft: #20344d;
+  --muted: #4b5f78;
+  --brand: #0f7e77;
+  --brand-strong: #0a605a;
+  --accent: #b47a34;
+  --soft-accent: #f4e2ca;
+  --ok: #0f8f6d;
   --warning: #b45309;
   --danger: #b42318;
+  --border: #d2dbe8;
+  --border-strong: #bdc9da;
+  --panel-start: #ffffff;
+  --panel-end: #f7f9fd;
   --radius-lg: 22px;
   --radius-md: 14px;
   --radius-sm: 10px;
-  --shadow: 0 12px 30px rgba(14, 55, 58, 0.12);
-  --shadow-soft: 0 4px 18px rgba(14, 55, 58, 0.09);
+  --shadow: 0 14px 38px rgba(16, 33, 56, 0.12);
+  --shadow-soft: 0 6px 20px rgba(16, 33, 56, 0.09);
 }
 
 *,
@@ -44,7 +49,7 @@ body {
 body {
   font-family: "Manrope", "Segoe UI", sans-serif;
   color: var(--ink);
-  background: linear-gradient(175deg, #f2faf7 0%, #f8f4ee 58%, #f5fbfa 100%);
+  background: linear-gradient(168deg, #f4f7fb 0%, #edf2f9 55%, #f7f4ee 100%);
   min-height: 100vh;
 }
 
@@ -60,7 +65,7 @@ body {
   position: absolute;
   border-radius: 999px;
   filter: blur(2px);
-  opacity: 0.4;
+  opacity: 0.26;
   animation: float 12s ease-in-out infinite;
 }
 
@@ -69,7 +74,7 @@ body {
   height: 26rem;
   left: -7rem;
   top: -7rem;
-  background: radial-gradient(circle at 35% 35%, #6bc4ad 0%, #2fa89d 45%, transparent 80%);
+  background: radial-gradient(circle at 35% 35%, #78b5d6 0%, #3f7fa7 45%, transparent 80%);
 }
 
 .orb-b {
@@ -77,7 +82,7 @@ body {
   height: 20rem;
   right: -5rem;
   top: 20%;
-  background: radial-gradient(circle at 40% 40%, #ffc29e 0%, #f0986d 48%, transparent 80%);
+  background: radial-gradient(circle at 40% 40%, #f6c98f 0%, #cf8c3c 48%, transparent 80%);
   animation-delay: -4s;
 }
 
@@ -86,7 +91,7 @@ body {
   height: 24rem;
   right: 24%;
   bottom: -10rem;
-  background: radial-gradient(circle at 35% 35%, #8acfc8 0%, #5fb7a5 40%, transparent 80%);
+  background: radial-gradient(circle at 35% 35%, #8bcfc3 0%, #3c9f95 40%, transparent 80%);
   animation-delay: -7s;
 }
 
@@ -114,7 +119,7 @@ body {
   width: 2.8rem;
   height: 2.8rem;
   border-radius: 0.9rem;
-  background: linear-gradient(135deg, var(--brand) 0%, #17a39f 100%);
+  background: linear-gradient(135deg, var(--brand) 0%, #14958b 100%);
   color: #fff;
   font-weight: 800;
   letter-spacing: 0.03em;
@@ -168,8 +173,8 @@ body {
 }
 
 .panel {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.92));
-  border: 1px solid #e0ebe6;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 255, 0.96));
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: 1rem 1.1rem;
@@ -332,6 +337,16 @@ button:focus-visible {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
   gap: 0.7rem;
+}
+
+@media (min-width: 1220px) {
+  .stats-grid {
+    grid-template-columns: repeat(var(--stats-count, 7), minmax(0, 1fr));
+  }
+
+  .stat-card {
+    min-width: 0;
+  }
 }
 
 .stat-card {
@@ -527,6 +542,12 @@ button:focus-visible {
   flex-wrap: wrap;
 }
 
+.lab-header-tools {
+  display: grid;
+  justify-items: end;
+  gap: 0.45rem;
+}
+
 .text-btn {
   border: 1px solid #c8ddd7;
   border-radius: 999px;
@@ -579,6 +600,28 @@ button:focus-visible {
   grid-template-columns: minmax(240px, 290px) 1fr;
   gap: 0.8rem;
   align-items: start;
+}
+
+.cases-layout.focus {
+  gap: 1rem;
+}
+
+.case-focus-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.9rem;
+  padding: 0.72rem 0.85rem;
+  border-radius: var(--radius-md);
+  border: 1px solid #cfe6df;
+  background: linear-gradient(120deg, #e7f7f2 0%, #f2fbf8 100%);
+}
+
+.case-focus-copy {
+  margin: 0.22rem 0 0;
+  color: #355860;
+  font-size: 0.9rem;
 }
 
 .cases-sidebar {
@@ -738,6 +781,60 @@ button:focus-visible {
 .guide-layout {
   display: grid;
   gap: 0.8rem;
+}
+
+body.lab-focus {
+  background: linear-gradient(175deg, #eef9f6 0%, #f4fcfa 100%);
+}
+
+body.lab-focus .bg-layer,
+body.lab-focus .topbar,
+body.lab-focus .sidebar,
+body.lab-focus .hero,
+body.lab-focus .controls,
+body.lab-focus .watermark {
+  display: none;
+}
+
+body.lab-focus .app-shell {
+  width: min(1500px, 98vw);
+  margin: 0.8rem auto 1rem;
+}
+
+body.lab-focus .layout {
+  grid-template-columns: 1fr;
+}
+
+body.lab-focus .main-content {
+  gap: 0;
+}
+
+body.lab-focus .view-container.panel {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  min-height: calc(100vh - 2rem);
+}
+
+body.lab-focus .case-focus-banner {
+  position: sticky;
+  top: 0.5rem;
+  z-index: 5;
+}
+
+body.lab-focus .cases-layout.focus {
+  grid-template-columns: minmax(260px, 330px) 1fr;
+  align-items: start;
+}
+
+body.lab-focus .cases-sidebar {
+  position: sticky;
+  top: 4.2rem;
+}
+
+body.lab-focus .case-list {
+  max-height: calc(100vh - 16rem);
 }
 
 .list-block h4 {
@@ -946,6 +1043,541 @@ button:focus-visible {
   color: #1f3e46;
 }
 
+/* Premium Dark Theme */
+:root {
+  --bg: #0b1220;
+  --surface: #101a2b;
+  --surface-muted: #162235;
+  --ink: #e9f1ff;
+  --ink-soft: #c7d3e8;
+  --muted: #93a7c3;
+  --brand: #2dcab6;
+  --brand-strong: #19b5a3;
+  --accent: #f0ab47;
+  --soft-accent: #3f2d14;
+  --ok: #35cb98;
+  --warning: #f0ab47;
+  --danger: #f08181;
+  --border: #27374f;
+  --border-strong: #385276;
+  --shadow: 0 18px 44px rgba(2, 8, 20, 0.58);
+  --shadow-soft: 0 10px 24px rgba(2, 8, 20, 0.44);
+}
+
+body {
+  color: var(--ink);
+  background: linear-gradient(160deg, #0b1220 0%, #111a2b 55%, #1a1f31 100%);
+}
+
+.orb {
+  opacity: 0.2;
+}
+
+.orb-a {
+  background: radial-gradient(circle at 35% 35%, #2b8f9f 0%, #245578 46%, transparent 80%);
+}
+
+.orb-b {
+  background: radial-gradient(circle at 40% 40%, #8a5f2d 0%, #50320f 48%, transparent 80%);
+}
+
+.orb-c {
+  background: radial-gradient(circle at 35% 35%, #2a9f89 0%, #1f5f67 40%, transparent 80%);
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(15, 24, 39, 0.97), rgba(14, 23, 37, 0.94));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, #1d8f81 0%, #19b4a1 100%);
+}
+
+.eyebrow {
+  color: #84d8c9;
+}
+
+.nav-toggle {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-soft);
+}
+
+input[type="search"] {
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--ink);
+}
+
+.search-result-btn,
+.module-btn,
+.complete-btn,
+.text-btn,
+.quiz-btn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink-soft);
+}
+
+.search-result-btn:hover,
+.module-btn:hover,
+.complete-btn:hover,
+.text-btn:hover,
+.quiz-btn:hover {
+  background: #1a263a;
+  border-color: var(--border-strong);
+}
+
+.module-btn.active {
+  border-color: #4b7397;
+  background: linear-gradient(145deg, #1a3246 0%, #173836 100%);
+}
+
+.module-btn.cases-btn {
+  border-color: #4a6283;
+  background: linear-gradient(145deg, #1a2f4d 0%, #184241 100%);
+  box-shadow: inset 0 0 0 1px rgba(160, 206, 255, 0.1), 0 6px 12px rgba(3, 11, 22, 0.36);
+}
+
+.module-btn.cases-btn:hover {
+  border-color: #5d7ba3;
+  background: linear-gradient(145deg, #1f3a5d 0%, #1d4c4a 100%);
+}
+
+.module-btn.cases-btn.active {
+  border-color: #5ec4b4;
+  background: linear-gradient(145deg, #21476c 0%, #1f5a56 100%);
+  box-shadow: inset 0 0 0 1px rgba(118, 223, 201, 0.24), 0 8px 16px rgba(4, 13, 25, 0.42);
+}
+
+.module-text-cases {
+  font-size: 0.99rem;
+  font-weight: 800;
+  letter-spacing: 0.012em;
+  color: #e7f2ff;
+}
+
+.module-meta-cases {
+  color: #9ed2c8;
+  font-weight: 700;
+}
+
+.module-special-tag {
+  display: inline-block;
+  margin-top: 0.28rem;
+  padding: 0.12rem 0.44rem;
+  border-radius: 999px;
+  border: 1px solid #5f7da2;
+  background: linear-gradient(130deg, rgba(52, 80, 115, 0.42), rgba(27, 73, 73, 0.4));
+  color: #b6d2f0;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.module-meta,
+.search-result-type {
+  color: #8ea2bf;
+}
+
+.status-pill {
+  border-color: #4c6380;
+}
+
+.status-pill.done {
+  border-color: var(--ok);
+  background: radial-gradient(circle at 35% 35%, #6fe4bc 0%, #1da87f 75%);
+}
+
+.progress-track {
+  background: #1f3048;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #118d7f 0%, #1db3a2 55%, #53d6be 100%);
+}
+
+.stat-card {
+  background: linear-gradient(165deg, #132235 0%, #14222e 100%);
+  border: 1px solid var(--border);
+}
+
+.stat-value {
+  color: #7de1ce;
+}
+
+.view-switcher {
+  border: 1px solid var(--border);
+  background: #111f33;
+}
+
+.view-btn {
+  color: #a5b7ce;
+}
+
+.view-btn.active {
+  background: linear-gradient(135deg, #147d71, #16a390);
+  box-shadow: 0 8px 16px rgba(10, 46, 43, 0.5);
+}
+
+.content-card {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, #111c2d, #0f1a29);
+}
+
+.hero-copy,
+.section-subtitle,
+.content-card p,
+.category-detail-subtitle,
+.case-progress-text,
+.flash-summary,
+.flash-tip,
+.quiz-meta,
+.search-empty,
+.empty-state,
+.progress-text {
+  color: var(--muted);
+}
+
+.chip {
+  border: 1px solid var(--border);
+  background: #16253a;
+  color: var(--ink-soft);
+}
+
+.chip-btn {
+  color: var(--ink-soft);
+}
+
+.chip-btn:hover {
+  background: #1d2d45;
+  border-color: #486487;
+}
+
+.chip-btn.active {
+  background: linear-gradient(145deg, #1c3653, #184242);
+  border-color: #4d77a1;
+  color: var(--ink);
+  box-shadow: 0 4px 12px rgba(5, 16, 30, 0.45);
+}
+
+.category-detail {
+  border-color: #31455e;
+  background: linear-gradient(165deg, #122236 0%, #132833 100%);
+}
+
+.text-btn.primary,
+.quiz-btn.primary {
+  border-color: #26b8a6;
+  color: #061419;
+  background: linear-gradient(135deg, #2fd3bc, #28b7a6);
+}
+
+.complete-btn.done {
+  border-color: #3fae95;
+  background: #183930;
+  color: #8dddc5;
+}
+
+.text-btn.primary:hover,
+.quiz-btn.primary:hover {
+  filter: brightness(1.05);
+}
+
+.case-focus-banner {
+  border: 1px solid #2f4764;
+  background: linear-gradient(120deg, #13293f 0%, #153432 100%);
+}
+
+.case-focus-copy,
+.cases-kicker,
+.flash-label {
+  color: #9bc6e1;
+}
+
+.cases-sidebar {
+  border: 1px solid #2f4460;
+  background: linear-gradient(180deg, #111f31 0%, #101c2c 100%);
+}
+
+.case-item {
+  border: 1px solid #304861;
+  background: #132235;
+}
+
+.case-item:hover {
+  background: #1a2d46;
+}
+
+.case-item.active {
+  border-color: #5d87ad;
+  background: linear-gradient(150deg, #1a3650 0%, #18413f 100%);
+  box-shadow: inset 0 0 0 1px rgba(134, 173, 212, 0.24);
+}
+
+.case-item-title,
+.case-note-list li strong,
+.quiz-end,
+.flash-back {
+  color: #d5e3f8;
+}
+
+.case-item-meta,
+.case-item-status {
+  color: #9fb2cb;
+}
+
+.case-item-status {
+  border: 1px solid #3a506b;
+  background: #15263b;
+}
+
+.case-item-status.done {
+  border-color: #43b88f;
+  background: #17352e;
+  color: #8be2c3;
+}
+
+.cases-main {
+  gap: 1rem;
+}
+
+.cases-main .content-card {
+  padding: 1rem 1.05rem;
+}
+
+.cases-main .content-card h4 {
+  font-size: 1.12rem;
+  line-height: 1.25;
+}
+
+.case-referral-reason {
+  margin-top: 0.7rem;
+  line-height: 1.66;
+}
+
+.case-note-list {
+  gap: 0.72rem;
+}
+
+.case-note-list li {
+  flex-wrap: wrap;
+  align-items: flex-start;
+  row-gap: 0.2rem;
+  line-height: 1.62;
+}
+
+.case-note-list li::before {
+  margin-top: 0.42rem;
+}
+
+.case-note-label {
+  font-weight: 800;
+  color: #e2ecfb;
+  letter-spacing: 0.01em;
+}
+
+.case-note-body {
+  flex: 1 1 100%;
+  margin-left: 1.08rem;
+  color: #c8d8ee;
+  line-height: 1.68;
+}
+
+.case-option,
+.quiz-option {
+  border: 1px solid #324962;
+  background: #122235;
+  color: #d3e0f3;
+}
+
+.case-options-grid {
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 0.72rem;
+  margin-top: 0.6rem;
+}
+
+.case-option {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.65rem;
+  min-height: 3.9rem;
+  padding: 0.74rem 0.82rem;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.case-option-index {
+  width: 1.56rem;
+  height: 1.56rem;
+  border-radius: 999px;
+  border: 1px solid #4e6d91;
+  background: #1c3049;
+  color: #d6e4f8;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: inline-grid;
+  place-items: center;
+  margin-top: 0.08rem;
+}
+
+.case-option-text {
+  display: block;
+  font-size: 0.96rem;
+  line-height: 1.56;
+  color: #d6e4f7;
+}
+
+.case-option:hover,
+.quiz-option:hover {
+  background: #1a2e46;
+  border-color: #5f84aa;
+}
+
+.case-option.selected {
+  border-color: #6c95bf;
+  background: #1b3650;
+}
+
+.case-option.selected .case-option-index {
+  border-color: #7da4cc;
+  background: #224061;
+}
+
+.case-option.correct,
+.quiz-option.correct {
+  border-color: #46b98f;
+  background: #153a31;
+}
+
+.case-option.correct .case-option-index {
+  border-color: #67c8a5;
+  background: #1c483d;
+  color: #dcf9ed;
+}
+
+.case-option.wrong,
+.quiz-option.wrong {
+  border-color: #b46f75;
+  background: #3a1f27;
+}
+
+.case-option.wrong .case-option-index {
+  border-color: #cc8e95;
+  background: #482730;
+  color: #ffdede;
+}
+
+.case-diagnostic-prompt {
+  margin-top: 0.34rem;
+  margin-bottom: 0.74rem;
+  max-width: 80ch;
+  line-height: 1.6;
+}
+
+.case-actions {
+  margin-top: 0.85rem;
+  gap: 0.64rem;
+}
+
+.case-actions .text-btn {
+  font-weight: 800;
+  padding: 0.52rem 0.95rem;
+}
+
+.case-feedback {
+  border: 1px solid #324962;
+  background: #111f31;
+  margin-top: 0.96rem;
+  padding: 0.84rem 0.9rem;
+}
+
+.case-feedback.ok {
+  border-left-color: #2ec496;
+  background: #14362e;
+}
+
+.case-feedback.fail {
+  border-left-color: #d17f7f;
+  background: #3a2229;
+}
+
+.case-feedback p {
+  line-height: 1.64;
+}
+
+.case-feedback p + p {
+  margin-top: 0.5rem;
+}
+
+.case-guidance {
+  margin-top: 0.82rem;
+  line-height: 1.6;
+}
+
+.quiz-feedback.ok {
+  color: #75ddb7;
+}
+
+.quiz-feedback.fail {
+  color: #f3a3a3;
+}
+
+.clean-list li {
+  color: #cfdef2;
+}
+
+.clean-list li::before {
+  background: linear-gradient(135deg, #34c4b2, #159486);
+}
+
+.warning-list li::before {
+  background: linear-gradient(135deg, #f0b768, #c9852f);
+}
+
+.resource-list li::before {
+  background: linear-gradient(135deg, #94bf88, #5f8f66);
+}
+
+.callout {
+  border-left: 4px solid #35bfad;
+  background: #142a3f;
+  color: #c9daef;
+}
+
+.flash-card {
+  border: 1px solid #304862;
+  background: linear-gradient(165deg, #122338 0%, #142633 100%);
+  color: #d7e5f8;
+}
+
+.flash-card.flipped {
+  border-color: #648fba;
+  background: linear-gradient(165deg, #1a3048 0%, #1a3636 100%);
+}
+
+.flash-front {
+  color: #d7e5f8;
+}
+
+.watermark {
+  color: rgba(164, 186, 215, 0.34);
+}
+
+.watermark-link:hover,
+.watermark-link:focus-visible {
+  color: rgba(204, 222, 245, 0.74);
+}
+
+body.lab-focus {
+  background: linear-gradient(165deg, #0a1120 0%, #0f1828 60%, #172032 100%);
+}
+
 @keyframes float {
   0%,
   100% {
@@ -980,6 +1612,23 @@ button:focus-visible {
     max-height: 260px;
   }
 
+  .case-focus-banner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  body.lab-focus .cases-layout.focus {
+    grid-template-columns: 1fr;
+  }
+
+  body.lab-focus .cases-sidebar {
+    position: static;
+  }
+
+  body.lab-focus .case-list {
+    max-height: 260px;
+  }
+
   .sidebar {
     position: fixed;
     left: 0.7rem;
@@ -987,11 +1636,11 @@ button:focus-visible {
     top: 4.8rem;
     bottom: 0.7rem;
     z-index: 20;
-    background: #f9fdfb;
+    background: #0f1a2b;
     padding: 0.6rem;
     border-radius: 22px;
-    border: 1px solid #d9e7e2;
-    box-shadow: 0 16px 36px rgba(8, 42, 48, 0.2);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 36px rgba(2, 8, 20, 0.54);
     overflow-y: auto;
     transform: translateY(8px);
     opacity: 0;
@@ -2795,6 +3444,7 @@ const estado = {
     casoSelecionadoId: null,
     diagnosticoSelecionado: "",
     validado: false,
+    modoFocado: false,
     tentativas: 0,
     acertos: 0
   },
@@ -2907,6 +3557,9 @@ function registarEventos() {
     }
 
     estado.vistaAtual = botao.dataset.view;
+    if (estado.vistaAtual !== "conteudo" && estado.laboratorio.modoFocado) {
+      sairModoLaboratorio(false);
+    }
     sincronizarBotoesVista();
     if (estado.vistaAtual === "quiz" && estado.quiz.perguntas.length === 0) {
       iniciarQuiz();
@@ -2967,6 +3620,11 @@ function registarEventos() {
       return;
     }
 
+    if (tipoAcao === "toggle-lab-focus") {
+      alternarModoLaboratorio();
+      return;
+    }
+
     if (tipoAcao === "toggle-complete") {
       alternarConclusaoModuloAtual();
       return;
@@ -2991,6 +3649,13 @@ function registarEventos() {
       iniciarQuiz();
       renderizarVistaAtual();
     }
+  });
+
+  document.addEventListener("keydown", (evento) => {
+    if (evento.key !== "Escape" || !estado.laboratorio.modoFocado) {
+      return;
+    }
+    sairModoLaboratorio();
   });
 }
 
@@ -3192,8 +3857,8 @@ function construirModulos(dados) {
     base.push({
       id: "laboratorio-casos",
       tipo: "casos",
-      titulo: "Laboratório de Casos Clínicos",
-      subtitulo: "Treina raciocínio clínico com simulações estruturadas e feedback pedagógico.",
+      titulo: "Casos Clínicos",
+      subtitulo: "Treino de Diagnóstico Diferencial",
       payload: dados.casos
     });
   }
@@ -3234,6 +3899,7 @@ function renderizarEstatisticas() {
     `
     )
     .join("");
+  ui.statsGrid.style.setProperty("--stats-count", String(cards.length));
 }
 
 function renderizarNavegacaoModulos() {
@@ -3241,12 +3907,18 @@ function renderizarNavegacaoModulos() {
     .map((modulo) => {
       const ativo = modulo.id === estado.moduloAtualId ? "active" : "";
       const concluido = estado.concluidos.has(modulo.id) ? "done" : "";
+      const destaqueCasos = modulo.tipo === "casos" ? "cases-btn" : "";
+      const metaModulo =
+        modulo.tipo === "casos"
+          ? "Treino de Diagnóstico Diferencial"
+          : `Módulo ${modulo.ordem} · ${rotuloTipo(modulo.tipo)}`;
       return `
         <li>
-          <button type="button" class="module-btn ${ativo}" data-module-id="${modulo.id}">
+          <button type="button" class="module-btn ${ativo} ${destaqueCasos}" data-module-id="${modulo.id}">
             <div>
-              <span class="module-text">${esc(modulo.titulo)}</span>
-              <span class="module-meta">Módulo ${modulo.ordem} · ${rotuloTipo(modulo.tipo)}</span>
+              <span class="module-text ${modulo.tipo === "casos" ? "module-text-cases" : ""}">${esc(modulo.titulo)}</span>
+              <span class="module-meta ${modulo.tipo === "casos" ? "module-meta-cases" : ""}">${metaModulo}</span>
+              ${modulo.tipo === "casos" ? '<span class="module-special-tag">Destaque</span>' : ""}
             </div>
             <span class="status-pill ${concluido}" aria-hidden="true"></span>
           </button>
@@ -3297,12 +3969,19 @@ function selecionarModulo(moduloId) {
   if (!estado.modulos.some((modulo) => modulo.id === moduloId)) {
     return;
   }
+  const ehCasosClinicos = moduloId === "laboratorio-casos";
   if (moduloId !== "categorias") {
     estado.categoriaSelecionada = null;
   }
-  if (moduloId !== "laboratorio-casos") {
+  if (!ehCasosClinicos) {
     estado.laboratorio.diagnosticoSelecionado = "";
     estado.laboratorio.validado = false;
+    estado.laboratorio.modoFocado = false;
+    sincronizarModoLaboratorioUI();
+  } else {
+    estado.vistaAtual = "conteudo";
+    estado.laboratorio.modoFocado = true;
+    sincronizarBotoesVista();
   }
   estado.moduloAtualId = moduloId;
   renderizarNavegacaoModulos();
@@ -3321,20 +4000,28 @@ function sincronizarBotoesVista() {
 
 function renderizarVistaAtual() {
   if (!estado.carregado) {
+    sincronizarModoLaboratorioUI();
     ui.viewContainer.innerHTML = '<p class="loading">A carregar aplicação...</p>';
     return;
   }
 
   if (estado.modulos.length === 0) {
+    sincronizarModoLaboratorioUI();
     mostrarErro("Sem módulos disponíveis.");
     return;
   }
 
   const modulo = obterModuloAtual();
   if (!modulo) {
+    sincronizarModoLaboratorioUI();
     mostrarErro("Módulo não encontrado.");
     return;
   }
+
+  if (modulo.tipo !== "casos" || estado.vistaAtual !== "conteudo") {
+    estado.laboratorio.modoFocado = false;
+  }
+  sincronizarModoLaboratorioUI();
 
   if (estado.vistaAtual === "conteudo") {
     renderizarConteudo(modulo);
@@ -3353,9 +4040,17 @@ function renderizarVistaAtual() {
 
 function renderizarConteudo(modulo) {
   const concluido = estado.concluidos.has(modulo.id);
+  const modoLaboratorioAtivo = modulo.tipo === "casos" && estado.laboratorio.modoFocado;
   const acoesCabecalho =
     modulo.tipo === "casos"
-      ? `<p class="section-subtitle">Acertos no laboratório: ${estado.laboratorio.acertos}/${estado.laboratorio.tentativas}</p>`
+      ? `
+        <div class="lab-header-tools">
+          <p class="section-subtitle">Acertos em casos clínicos: ${estado.laboratorio.acertos}/${estado.laboratorio.tentativas}</p>
+          <button type="button" class="text-btn ${modoLaboratorioAtivo ? "primary" : ""}" data-action="toggle-lab-focus">
+            ${modoLaboratorioAtivo ? "Voltar à UI principal" : "Abrir modo dedicado"}
+          </button>
+        </div>
+      `
       : `<button type="button" class="complete-btn ${concluido ? "done" : ""}" data-action="toggle-complete">
           ${concluido ? "Módulo concluído" : "Marcar como concluído"}
         </button>`;
@@ -3560,7 +4255,7 @@ function normalizarComparacao(texto) {
   return (texto ?? "")
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(/[\u0300-\u036f]/g, "")
     .trim();
 }
 
@@ -3576,19 +4271,40 @@ function renderizarBlocoCasos(casos) {
 
   const escolhaAtual = estado.laboratorio.diagnosticoSelecionado;
   const validado = estado.laboratorio.validado;
+  const modoLaboratorioAtivo = estado.laboratorio.modoFocado;
   const concluido = estado.casosConcluidos.has(casoAtual.id);
   const moduloTeorico = obterModuloTeoricoPorDiagnostico(casoAtual.diagnosticoPrincipal.condicao);
   const acertou =
     validado && escolhaAtual && escolhaAtual === casoAtual.diagnosticoPrincipal.condicao;
 
   const listaNotas = casoAtual.notasClinicas
-    .map((nota) => `<li><strong>${esc(nota.categoria)}:</strong> ${esc(nota.descricao)}</li>`)
+    .map(
+      (nota) => `
+        <li>
+          <span class="case-note-label">${esc(nota.categoria)}:</span>
+          <span class="case-note-body">${esc(nota.descricao)}</span>
+        </li>
+      `
+    )
     .join("");
 
   return `
-    <section class="cases-layout">
+    ${
+      modoLaboratorioAtivo
+        ? `
+      <div class="case-focus-banner">
+        <div>
+          <p class="cases-kicker">Modo dedicado ativo</p>
+          <p class="case-focus-copy">Casos Clínicos · Treino de Diagnóstico Diferencial</p>
+        </div>
+        <button type="button" class="text-btn" data-action="toggle-lab-focus">Voltar à UI principal</button>
+      </div>
+    `
+        : ""
+    }
+    <section class="cases-layout ${modoLaboratorioAtivo ? "focus" : ""}">
       <aside class="cases-sidebar">
-        <p class="cases-kicker">Laboratório Clínico</p>
+        <p class="cases-kicker">Casos Clínicos</p>
         <h4>Casos</h4>
         <p class="case-progress-text">${estado.casosConcluidos.size} de ${casos.length} casos estudados</p>
         <div class="progress-track" aria-hidden="true">
@@ -3607,7 +4323,7 @@ function renderizarBlocoCasos(casos) {
                   data-case-id="${caso.id}"
                 >
                   <span class="case-item-title">${esc(caso.titulo)}</span>
-                  <span class="case-item-meta">${esc(caso.utente.nome)} ? ${esc(caso.utente.idade)} anos</span>
+                  <span class="case-item-meta">${esc(caso.utente.nome)} · ${esc(caso.utente.idade)} anos</span>
                   <span class="case-item-status ${feito ? "done" : ""}">${feito ? "Estudado" : "Por estudar"}</span>
                 </button>
               `;
@@ -3635,7 +4351,7 @@ function renderizarBlocoCasos(casos) {
               </button>
             </div>
           </div>
-          <p class="callout">${esc(casoAtual.motivo)}</p>
+          <p class="callout case-referral-reason">${esc(casoAtual.motivo)}</p>
         </article>
 
         <article class="content-card list-block">
@@ -3647,10 +4363,10 @@ function renderizarBlocoCasos(casos) {
 
         <article class="content-card list-block">
           <h4>Hipótese Diagnóstica</h4>
-          <p class="section-subtitle">Seleciona o diagnóstico principal mais consistente com as pistas.</p>
+          <p class="section-subtitle case-diagnostic-prompt">Seleciona o diagnóstico principal mais consistente com as pistas.</p>
           <div class="case-options-grid">
             ${casoAtual.opcoesDiagnosticas
-              .map((opcao) => {
+              .map((opcao, indice) => {
                 const escolhida = escolhaAtual === opcao;
                 const correta = validado && opcao === casoAtual.diagnosticoPrincipal.condicao;
                 const errada = validado && escolhida && !correta;
@@ -3660,15 +4376,17 @@ function renderizarBlocoCasos(casos) {
                     class="case-option ${escolhida ? "selected" : ""} ${correta ? "correct" : ""} ${errada ? "wrong" : ""}"
                     data-action="choose-case-diagnosis"
                     data-diagnosis="${encodeURIComponent(opcao)}"
+                    aria-pressed="${escolhida ? "true" : "false"}"
                     ${validado ? "disabled" : ""}
                   >
-                    ${esc(opcao)}
+                    <span class="case-option-index" aria-hidden="true">${indice + 1}</span>
+                    <span class="case-option-text">${esc(opcao)}</span>
                   </button>
                 `;
               })
               .join("")}
           </div>
-          <div class="inline-actions">
+          <div class="inline-actions case-actions">
             <button type="button" class="text-btn primary" data-action="validate-case-diagnosis" ${
               !escolhaAtual || validado ? "disabled" : ""
             }>
@@ -3699,7 +4417,7 @@ function renderizarBlocoCasos(casos) {
             </div>
           `
               : `
-            <p class="empty-state">Depois de escolheres uma hipótese, valida para ver justificações clínicas e diagnóstico diferencial.</p>
+            <p class="empty-state case-guidance">Depois de escolheres uma hipótese, valida para ver justificações clínicas e diagnóstico diferencial.</p>
           `
           }
         </article>
@@ -4386,6 +5104,42 @@ function obterModuloAtual() {
   return estado.modulos.find((modulo) => modulo.id === estado.moduloAtualId);
 }
 
+function moduloAtualEhLaboratorio() {
+  const modulo = obterModuloAtual();
+  return Boolean(modulo && modulo.tipo === "casos" && estado.vistaAtual === "conteudo");
+}
+
+function sincronizarModoLaboratorioUI() {
+  const ativo = estado.laboratorio.modoFocado && moduloAtualEhLaboratorio();
+  document.body.classList.toggle("lab-focus", ativo);
+}
+
+function sairModoLaboratorio(renderizar = true) {
+  if (!estado.laboratorio.modoFocado) {
+    sincronizarModoLaboratorioUI();
+    return;
+  }
+  estado.laboratorio.modoFocado = false;
+  sincronizarModoLaboratorioUI();
+  if (renderizar) {
+    renderizarVistaAtual();
+  }
+}
+
+function alternarModoLaboratorio() {
+  if (!moduloAtualEhLaboratorio()) {
+    return;
+  }
+  estado.laboratorio.modoFocado = !estado.laboratorio.modoFocado;
+  if (estado.laboratorio.modoFocado) {
+    estado.vistaAtual = "conteudo";
+    sincronizarBotoesVista();
+    fecharNavegacaoMobile();
+  }
+  sincronizarModoLaboratorioUI();
+  renderizarVistaAtual();
+}
+
 function alternarNavegacaoMobile() {
   const aberto = document.body.classList.toggle("nav-open");
   ui.navToggle.setAttribute("aria-expanded", aberto ? "true" : "false");
@@ -4442,7 +5196,7 @@ function rotuloTipo(tipo) {
     categorias: "Mapa Diagnóstico",
     guia: "Guia Clínico",
     impacto: "Bem-estar do Cuidador",
-    casos: "Laboratório Clínico"
+    casos: "Casos Clínicos"
   };
   return mapa[tipo] ?? "Módulo";
 }
